@@ -23,7 +23,10 @@ let routes = [
   {
     name: 'Calendar',
     path: '/calendar',
-    // components: require('@/components/EditEvent')
+    props: { 
+      default: { longList: true },
+    },
+    components: require('@/components/Calendar')
   },
   {
     name: '404',

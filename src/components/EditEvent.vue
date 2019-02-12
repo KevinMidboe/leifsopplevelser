@@ -1,6 +1,6 @@
 <template>
   <div class="parent">
-    <h1>add new event</h1>
+    <h1>opprett nytt arrangement</h1>
 
 <div class="container">
   <div class="cont2" data-block-type="9">
@@ -9,41 +9,44 @@
         <div class="form-inner-wrapper">
           <form>
             <div class="field-list clear">
+              <div class="form-item field email required">
+                <label class="title" for="email2-field">Tittel <span class="required">*</span></label>
+                
+                <input class="field-element" name="email" x-autocompletetype="email" type="email" spellcheck="false">
+              </div>    
+
               <fieldset class="form-item fields name required">
-              <div class="title">name <span class="required">*</span></div>
+                <div class="title">Dato <span class="required">*</span></div>
                 <div class="field first-name">
                   <label class="caption"><input class="field-element field-control" name="fname" x-autocompletetype="given-name" type="date" spellcheck="false" maxlength="30" data-title="First">
                   Fra Dato</label>
                 </div>
                 <div class="field last-name">
-                  <label class="caption"><input class="field-element field-control" name="lname" x-autocompletetype="surname" type="text" spellcheck="false" maxlength="30" data-title="Last">
+                  <label class="caption"><input class="field-element field-control" name="lname" x-autocompletetype="surname" type="date" spellcheck="false" maxlength="30" data-title="Last">
                   Til Dato</label>
                 </div>
               </fieldset>
+
            
-
-
-
-              <div class="form-item field email required">
-                <label class="title" for="email2-field">email address <span class="required">*</span></label>
-                
-                <input class="field-element" name="email" x-autocompletetype="email" type="text" spellcheck="false">
-              </div>            
               <div class="form-item field text required">
-                <label class="title" for="text3-field">subject <span class="required">*</span></label>
+                <label class="title" for="text3-field">Sted<span class="required">*</span></label>
                 
-                <input class="field-element text" type="text">
+                <input class="field-element text" v-model="locationInput" @click="show" type="text">
+
+                <ul class="field-autocompleted" v-click-outside="hide" v-if="showAutocompleted && features.length > 1">
+                  <li v-for="result in features" @click="choosePlace(result)">{{ result.place_name_no }}</li>
+                </ul>
               </div>
 
-              <div class="form-item field textarea required">
+<!--               <div class="form-item field textarea required">
                 <label class="title" for="textarea4-field">love letter <span class="required">*</span></label>
                 
                 <textarea class="field-element "></textarea>
-              </div>
+              </div> -->
 
         </div> 
       <div class="form-button-wrapper form-button-wrapper--align-left">
-        <input class="button sqs-system-button sqs-editable-button" type="submit" value="Submit">
+        <input class="button sqs-system-button sqs-editable-button" type="submit" value="Legg til">
       </div>
 
       <div class="hidden form-submission-text">Thank you!</div>
@@ -59,20 +62,69 @@
 </template>
 
 <script>
+import axios from 'axios'
+import ClickOutside from 'vue-click-outside'
 
 export default {
-  components: {
-
-  },
+  components: { },
   data() {
     return {
+      locationInput: undefined,
+      timeout: undefined,
+      features: [],
+      showAutocompleted: false,
+      selectedPlace: undefined
+    }
+  },
+  watch: {
+    locationInput: function(newVal, preVal) {      
+      console.log('input changed')
+      let place = this.selectedPlace ? this.selectedPlace.place_name_no : false
 
+      if (place !== newVal) {
+        this.debounce(this.call)
+      }
     }
   },
   created() {},
   beforeMount() {},
   methods: {
+    debounce(fn, time=1000) {
+      const functionCall = () => fn.apply(this, arguments);
+      
+      clearTimeout(this.timeout);
+      this.timeout = setTimeout(functionCall, time);
+    },
+    choosePlace(place) {
+      console.log('Chooosen');
+      this.locationInput = place.place_name_no;
+      this.selectedPlace = place;
+      this.showAutocompleted = false;
+    },
+    hide() {
+      this.showAutocompleted = false;
+    },
+    show() {
+      this.showAutocompleted = true;
+    },
+    call() {
+      axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${this.locationInput}.json`, {
+        params: {
+          access_token: 'pk.eyJ1Ijoia2V2aW5taWRib2UiLCJhIjoiY2pydWhlamQyMHJ2NTRhdGN1em5ndXVyMyJ9.Ejdo_3iuuGOD662Bh6es4w',
+          autocomplete: true,
+          language: 'no'
+        }
 
+      })
+      .then((resp) => {
+        this.features = resp.data.features;
+        this.showAutocompleted = true;
+      })
+      console.log('CALLING')
+    }
+  },
+  directives: {
+    ClickOutside
   }
 }
 </script>
@@ -80,15 +132,15 @@ export default {
 <style lang="scss" scoped>
   .parent {
     display: block;
-    width: 900px;
-    margin: 4rem auto;
+
+    margin: 4rem 1rem;
   }
 
 
   .container {
     color: rgba(0, 0, 0, 0.701961);
     display: block;
-    margin: 0 auto;
+    // margin: 0 auto;
     font-family: 'Proxima Nova';
     margin-top: 3rem;
     font-size: 14px;
@@ -98,7 +150,7 @@ export default {
     letter-spacing: normal;
     line-height: 22.399999618530273px;
     padding-right: 0px;
-    width: 612px;
+    width: 100%;
   }
 
   .cont2 {
@@ -125,7 +177,6 @@ export default {
     transition-duration: 0.2s;
     transition-property: box-shadow;
     transition-timing-function: ease-in-out;
-    width: 582px;
   }
 
   .form-item {
@@ -175,7 +226,6 @@ export default {
       height: 17px;
       letter-spacing: normal;
       line-height: 17px;
-      width: 581.765625px;
     }
 
     & .field {
@@ -193,7 +243,11 @@ export default {
       margin-right: 0px;
       margin-top: 0px;
       position: relative;
-      width: 284.9375px;
+      width: 290.9375px;
+
+      @media screen and (max-width: 650px) {
+        width: 40vw;
+      }
 
       &:last-of-type {
         margin-left: 11px;
@@ -211,6 +265,50 @@ export default {
         letter-spacing: normal;
         line-height: 14px;
       }
+    }
+
+    .field-autocompleted {
+      // width: 591.8px;
+      // height: 200px;
+      position: absolute;
+      padding: 0;
+      margin: 0;
+      margin-top: -6px;
+      background-color: white;
+
+      li {
+        list-style: none;
+        height: 2.3rem;
+        line-height: 2.3rem;
+        padding-left: 0.5rem;
+
+        &:hover {
+          background-color: #e6e6e6;
+          cursor: pointer;
+        }
+      }
+      
+      border-bottom-color: rgb(204, 204, 204);
+      border-bottom-left-radius: 2px;
+      border-bottom-right-radius: 2px;
+      border-bottom-style: solid;
+      border-bottom-width: 1px;
+      border-image-outset: 0px;
+      border-image-repeat: stretch;
+      border-image-slice: 100%;
+      border-image-source: none;
+      border-image-width: 1;
+      border-left-color: rgb(204, 204, 204);
+      border-left-style: solid;
+      border-left-width: 1px;
+      border-right-color: rgb(204, 204, 204);
+      border-right-style: solid;
+      border-right-width: 1px;
+      border-top-color: rgb(204, 204, 204);
+      border-top-left-radius: 2px;
+      border-top-right-radius: 2px;
+      border-top-style: solid;
+      border-top-width: 1px;
     }
 
     & input {
@@ -269,9 +367,68 @@ export default {
       text-shadow: none;
       text-transform: none;
       vertical-align: baseline;
-      width: 284.9375px;
+
+      width: 100%;
       word-spacing: 0px;
       writing-mode: horizontal-tb;
     }
+  }
+
+
+  .button {
+    -webkit-backface-visibility: none;
+    background-color: rgb(39, 39, 39);
+    border-bottom-color: rgb(39, 39, 39);
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-style: outset;
+    border-bottom-width: 0px;
+    border-image-outset: 0px;
+    border-image-repeat: stretch;
+    border-image-slice: 100%;
+    border-image-source: none;
+    border-image-width: 1;
+    border-left-color: rgb(39, 39, 39);
+    border-left-style: outset;
+    border-left-width: 0px;
+    border-right-color: rgb(39, 39, 39);
+    border-right-style: outset;
+    border-right-width: 0px;
+    border-top-color: rgb(39, 39, 39);
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-top-style: outset;
+    border-top-width: 0px;
+    // box-sizing: border-box;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    // display: inline-block;
+    font-family: proxima-nova, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-variant-caps: normal;
+    font-weight: 600;
+    height: 42px;
+    letter-spacing: 1px;
+    line-height: 14px;
+    margin-left: -10px;
+    outline-color: rgb(255, 255, 255);
+    outline-style: none;
+    outline-width: 0px;
+    padding: auto;
+    text-align: center;
+    text-decoration: none;
+    text-indent: 0px;
+    text-shadow: none;
+    text-transform: uppercase;
+    transition-delay: 0s;
+    transition-duration: 0.1s;
+    transition-property: opacity;
+    transition-timing-function: linear;
+    vertical-align: baseline;
+    white-space: pre;
+    width: 126.859375px;
+    word-spacing: 0px;
+    writing-mode: horizontal-tb;
   }
 </style>

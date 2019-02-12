@@ -7,16 +7,19 @@
     </div>
 
     <!-- <map-view :cords="cords"></map-view> -->
+    <!-- <calendar></calendar> -->
+
     <gallery></gallery>
   </div>
 </template>
 
 <script>
 import Gallery from '@/components/Gallery'
+import Calendar from '@/components/Calendar'
 
 export default {
   components: {
-    Gallery
+    Gallery, Calendar
   },
   props: ['id'],
   data() {
