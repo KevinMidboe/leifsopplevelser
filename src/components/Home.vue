@@ -1,10 +1,15 @@
 <template>
-  <div class="site-header">
+  <div>
+    <!-- <div class="site-header"></div> -->
 <!--     <h1>{{ title }}</h1>
     <h2>Han har ikke hatt nok etter 60 år!</h2>
     {{ date }} -->
     <!-- <Header></Header> -->
-    <router-link to="edit">Edit Page</router-link>
+    
+
+    <!-- <router-link to="edit">Edit Page</router-link> -->
+
+    <Popover class="popup" v-if="popoverShow" :image="popoverImage"></Popover>
 
     <event-page></event-page>
   </div>
@@ -13,20 +18,32 @@
 <script>
   import Header from '@/components/Header'
   import EventPage from '@/components/EventPage'
+  import Popover from '@/components/Popover'
 
   export default {
-    components: { Header, EventPage },
+    components: { Header, EventPage, Popover },
     data() {
       return {
         title: 'Leifs opplevelser',
         date: undefined,
-        bool: false
+        bool: false,
+        popoverImage: undefined,
+        popoverShow: false
       }
     },
     created() {
       this.date = new Date();
+      eventHub.$on('openPopover', this.openPopover)
+      eventHub.$on('closePopover', this.closePopover)
     },
     methods: {
+      openPopover(image) {
+        this.popoverImage = image;
+        this.popoverShow = true;
+      },
+      closePopover(image) {
+        this.popoverShow = false;
+      },
       navigate: function() {
         console.log(this.$router)
         this.$router.push('/edit');

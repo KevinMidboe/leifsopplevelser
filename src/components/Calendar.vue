@@ -10,7 +10,10 @@
 
 export default {
   props: {
-    longList: Boolean,
+    short: {
+      default: true,
+      type: Boolean
+    }
   },
   data() {
     return {

@@ -24,7 +24,7 @@ let routes = [
     name: 'Calendar',
     path: '/calendar',
     props: { 
-      default: { longList: true },
+      default: { short: false },
     },
     components: require('@/components/Calendar')
   },

@@ -1,15 +1,17 @@
 <template>
-  <div class="gallery">
-    <div class="gallery--header">
-      <h1>Topptur til gaustadtoppen æøå {{ id }}</h1>
-      <p class="gallery--info">{{ eventDate.from }} - {{ eventDate.until }}</p>
-      <p class="gallery--info">{{ eventLocation }}. <a href="#">Se kart</a></p>
+  <div>
+    <div class="gallery">
+      <div class="gallery--header">
+        <h1>Topptur til gaustadtoppen æøå {{ id }}</h1>
+        <p class="gallery--info">{{ eventDate.from }} - {{ eventDate.until }}</p>
+        <p class="gallery--info">{{ eventLocation }}. <a href="#">Se kart</a></p>
+      </div>
+
+      <!-- <map-view :cords="cords"></map-view> -->
+      <!-- <calendar></calendar> -->
+
+      <gallery :short="false"></gallery>
     </div>
-
-    <!-- <map-view :cords="cords"></map-view> -->
-    <!-- <calendar></calendar> -->
-
-    <gallery></gallery>
   </div>
 </template>
 
@@ -48,8 +50,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.popover {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  background-color: rgba(0,0,0,0.7);
+}
+
 .gallery {
-  margin: 2.1rem;
+  padding: 2.1rem;
 
   &--header {
     padding-bottom: 4rem;

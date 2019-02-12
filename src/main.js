@@ -6,8 +6,9 @@ import router from './routes'
 import axios from 'axios'
 import BootstrapVue from 'bootstrap-vue'
 
-
 Vue.config.productionTip = false
+
+window.eventHub = new Vue();
 
 new Vue({
   el: '#app',

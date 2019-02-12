@@ -132,7 +132,6 @@ export default {
 <style lang="scss" scoped>
   .parent {
     display: block;
-
     margin: 4rem 1rem;
   }
 
@@ -151,6 +150,7 @@ export default {
     line-height: 22.399999618530273px;
     padding-right: 0px;
     width: 100%;
+    max-width: 612px;
   }
 
   .cont2 {
@@ -246,7 +246,8 @@ export default {
       width: 290.9375px;
 
       @media screen and (max-width: 650px) {
-        width: 40vw;
+        max-width: 40vw;
+        min-width: 120px;
       }
 
       &:last-of-type {

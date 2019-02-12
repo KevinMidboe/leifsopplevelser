@@ -19,13 +19,14 @@ export default {
   },
   data() {
     return {
-
     }
   },
   created() {},
   beforeMount() {},
   methods: {
-
+    popOver(image) {
+      eventHub.$emit('openPopover', image);
+    }
   }
 }
 </script>
@@ -34,6 +35,7 @@ export default {
   img {
     height: 300px;
     cursor: pointer;
+    margin: 0 0.5rem;
 
     @media screen and (max-width: 600px) {
       background-color: red;
