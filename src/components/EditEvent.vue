@@ -376,6 +376,7 @@ export default {
 
 
   .button {
+    -webkit-appearance: none;
     -webkit-backface-visibility: none;
     background-color: rgb(39, 39, 39);
     border-bottom-color: rgb(39, 39, 39);
