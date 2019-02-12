@@ -1,10 +1,45 @@
-@import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
+// @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
+
+@font-face {
+  font-family: "Proxima Nova";
+  src: url("assets/fonts/proxima-nova.ttf");
+}
+
+@font-face {
+  font-family: "proxima-nova-thin";
+  src: url("assets/fonts/proxima-nova-thin.ttf");
+}
+
+@font-face {
+  font-family: "Proxima-cocker";
+  src: url("assets/fonts/nova.ttf");
+}
+
+
+@font-face {
+  font-family: "Ambroise std demi";
+  src: url("assets/fonts/ambroise-std-demi.ttf");
+}
 
 html {
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: 'Arial', sans-serif;
 }
 
 h1, h2, h3, h4, h5, p {
   font-weight: normal;
   font-style: normal;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-family: 'Ambroise std demi', sans-serif;
+  font-weight: 400;
+  line-height: 1.2em;
+  font-size: 36px;
+  text-transform: lowercase;
+  text-decoration: none;
+  text-align: left;
+  letter-spacing: .01em;
+  color: #cb0b0b;
 }

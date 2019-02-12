@@ -1,15 +1,21 @@
 <template>
-  <div class="col-md-10 col-sm-12">
-    <h1>Leifs opplevelser</h1>
+  <div class="site-header">
+<!--     <h1>{{ title }}</h1>
     <h2>Han har ikke hatt nok etter 60 år!</h2>
-    {{ date }}
+    {{ date }} -->
+    <!-- <Header></Header> -->
+    <router-link to="edit">Edit Page</router-link>
+
+    <event-page></event-page>
   </div>
 </template>
 
 <script>
-  // import '' from ''
+  import Header from '@/components/Header'
+  import EventPage from '@/components/EventPage'
 
   export default {
+    components: { Header, EventPage },
     data() {
       return {
         title: 'Leifs opplevelser',
@@ -19,19 +25,17 @@
     },
     created() {
       this.date = new Date();
+    },
+    methods: {
+      navigate: function() {
+        console.log(this.$router)
+        this.$router.push('/edit');
+      }
     }
   }
 </script>
 
 <style language="scss">
-  h1 {
-    font-size: 6rem;
-    font-weight: 400;
-    font-style: normal;
-    text-align: center;
-    text-transform: uppercase;
-  }
-
   h2 {
     text-align: center;
     font-weight: normal;
