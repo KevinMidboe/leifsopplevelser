@@ -36,7 +36,7 @@ export default {
   .popover {
     height: 100%;
     width: 100%;
-    position: absolute;
+    position: fixed;
     background-color: rgba(0,0,0,0.7);
     display: flex;
     align-items: center;
@@ -44,6 +44,10 @@ export default {
    
     img {
       max-height: 80%;
+
+      @media screen and (max-width: 600px) {
+        height: 80vh;
+      }
     }
 
     .hover-options {
