@@ -46,7 +46,7 @@ export default {
       max-height: 80%;
 
       @media screen and (max-width: 600px) {
-        height: 80vh;
+        max-width: 90vw;
       }
     }
 
