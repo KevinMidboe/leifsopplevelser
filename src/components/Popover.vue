@@ -3,9 +3,12 @@
     <div class="popover-content">
       <div class="image-container">
         <img :src="image.url" />
+      
+        <div class="other-elements">
+          <p>There is something here</p>
+        </div>
+      
       </div>
-
-      <div class="other-elements"></div>
     </div>
     <div style="position: fixed; width: 100%; bottom: 2rem">
       <div style="display: block; width: max-content; margin: 0 auto;">
@@ -74,6 +77,11 @@ export default {
       // flex-direction: column;
       overflow: auto;
     }
+
+    .image-container {
+      // background-color: white;
+      // padding: 0.4rem;
+    }
    
     img {
       max-height: 90vh;
@@ -85,8 +93,11 @@ export default {
     }
 
     .other-elements {
-      // height: 2000px;
-      background-color: NavajoWhite;
+      margin-top: -3px;
+      // height: 100px;
+      padding: 1rem;
+      color: white;
+      background-color: rgba(0,0,0,0.75);
     }
 
     .hover-options {
