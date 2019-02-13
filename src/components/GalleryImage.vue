@@ -14,7 +14,7 @@ export default {
   props: {
     image: {
       type: Object,
-      required: false
+      required: true
     }
   },
   data() {
@@ -26,6 +26,7 @@ export default {
   methods: {
     popOver(image) {
       eventHub.$emit('openPopover', image);
+      this.$emit('click', image)
     }
   }
 }

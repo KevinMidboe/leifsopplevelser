@@ -1,6 +1,6 @@
 <template>
   <div class="parent">
-    <h1>opprett nytt arrangement</h1>
+    <h1 class="slipping-left">registrer en ny opplevelse</h1>
 
 <div class="container">
   <div class="cont2" data-block-type="9">
@@ -132,7 +132,13 @@ export default {
 <style lang="scss" scoped>
   .parent {
     display: block;
-    margin: 4rem 1rem;
+    width: max-content;
+    margin: 4rem auto;
+
+    @media screen and (max-width: 650px) {
+      margin: 4rem 1rem;
+      width: unset;
+    }
   }
 
 
@@ -270,6 +276,7 @@ export default {
 
     .field-autocompleted {
       // width: 591.8px;
+      width: calc(100% - 1.26rem);
       // height: 200px;
       position: absolute;
       padding: 0;
@@ -282,6 +289,8 @@ export default {
         height: 2.3rem;
         line-height: 2.3rem;
         padding-left: 0.5rem;
+        white-space: nowrap;
+        overflow: hidden;
 
         &:hover {
           background-color: #e6e6e6;

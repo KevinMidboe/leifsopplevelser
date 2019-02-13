@@ -2,27 +2,22 @@
 
 @font-face {
   font-family: "Proxima Nova";
-  src: url("assets/fonts/proxima-nova.ttf");
-}
-
-@font-face {
-  font-family: "proxima-nova-thin";
-  src: url("assets/fonts/proxima-nova-thin.ttf");
+  src: url("assets/fonts/Proxima-Nova.ttf");
 }
 
 @font-face {
   font-family: "Proxima Nova Bold";
-  src: url("assets/fonts/nova.ttf");
+  src: url("assets/fonts/Proxima-Nova-Bold.ttf");
 }
 
 
 @font-face {
   font-family: "Ambroise std demi";
-  src: url("assets/fonts/ambroise-std-demi.ttf");
+  src: url("assets/fonts/Ambroise-std-Demi.ttf");
 }
 
 html {
-  font-family: 'Arial', sans-serif;
+  font-family: 'Proxima Nova', sans-serif;
 }
 
 h1, h2, h3, h4, h5, p {
@@ -30,6 +25,12 @@ h1, h2, h3, h4, h5, p {
   font-style: normal;
   margin: 0;
   padding: 0;
+
+  &.slipping-left {
+    @media screen and (min-width: calc(650px + 6rem)) {
+      margin-left: -5rem;
+    }
+  }
 }
 
 h1 {

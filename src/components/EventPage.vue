@@ -38,13 +38,6 @@ export default {
         until: this.endDate || '12.10.19'
       }
     }
-  },
-  created() {},
-  beforeMount() {
-    console.log('routes', this.$router, this.id)
-  },
-  methods: {
-
   }
 }
 </script>
@@ -66,9 +59,9 @@ export default {
   }
 
   &--info {
-    font-family: 'proxima-nova-thin';
+    font-family: 'Proxima Nova';
     font-weight: 300;
-    font-style: normal;
+    font-style: italic;
     font-size: 18px;
     line-height: 1.6rem;
     letter-spacing: 0rem;
@@ -76,6 +69,15 @@ export default {
 
     &:first-of-type {
       margin-top: 0.8rem;
+    }
+
+    a {
+      font-family: 'Ambroise std demi';
+      font-style: normal;
+
+      &:visited {
+        color: #3b70a2;
+      }
     }
   }
 }

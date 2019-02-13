@@ -1,8 +1,8 @@
 <template>
   <div class="gallery-container">
 
-    <div v-for="item in gallery">
-      <gallery-image v-if="item.type === 'image'" :image="item"></gallery-image> 
+    <div v-for="(item, key) in gallery">
+      <gallery-image v-if="item.type === 'image'" :image="item" @click="imageSelected"></gallery-image> 
       <gallery-text v-if="item.type === 'text'" :text="item"></gallery-text> 
     </div>
   </div>
@@ -23,6 +23,7 @@ export default {
   },
   data() {
     return {
+      selected: undefined,
       gallery: [
         {
           type: 'image',
@@ -48,16 +49,52 @@ export default {
           type: 'image',
           name: 'plants 4 life',
           url: 'https://static1.squarespace.com/static/585040955016e131e74667b0/5a4eeae7ec212d38915e64cd/5a4eeaee0852296d709ba5a6/1515121396456/The-Marias-Art-10.PNG?format=500w'
+        },
+        {
+          type: 'image',
+          name: 'Two brothers meant for each other',
+          url: 'http://localhost:3000/uploads/avatars/responsive/eea452299eba7225036aa836f35d86d0_lg.png'
+        },
+        {
+          type: 'image',
+          name: 'Two brothers meant for each other',
+          url: 'http://localhost:3000/uploads/avatars/responsive/eea452299eba7225036aa836f35d86d0_xs.png'
         }
       ]
     }
   },
-  created() {},
-  beforeMount() {},
+  created() {
+    eventHub.$on('iteratePopoverImage', this.iteratePopoverImage)
+  },
   methods: {
-    popOver(image) {
-      console.log('Emitting to popover Image', JSON.stringify(image));
-      this.$emit('popover', image);
+    imageSelected(image) {
+      this.selected = image;
+      console.log(this.selected.name)
+    },
+    selectedIndexInGallery() {
+      const gallery = this.gallery;
+      const selected = this.selected;
+
+      for(var i = 0; i < gallery.length; i += 1) {
+        if(gallery[i] === selected) {
+          return i;
+        }
+      }
+      return -1;
+    },
+    iteratePopoverImage(direction) {
+      let i = this.selectedIndexInGallery() + direction;
+
+      // Overflow handler
+      if (i >= this.gallery.length) {
+        i = 0;
+      } else if (i == -1) {
+        i = this.gallery.length - 1;
+      }
+
+      let image = this.gallery[i];
+      eventHub.$emit('openPopover', image);
+      this.selected = image;
     }
   }
 }

@@ -1,7 +1,15 @@
 <template>
-  <div class="popover" @click="close">
-    <div class="image-container">
-      <img @click="close" :src="image.url" />
+  <div>
+    <div class="popover" @click="close">
+      <div class="image-container">
+        <img :src="image.url" />
+      </div>
+    </div>
+    <div style="position: absolute; width: 100%; bottom: 2rem">
+      <div style="display: block; width: max-content; margin: 0 auto;">
+        <button @click="backwards">Backwards</button>
+        <button @click="forwards">Forwards</button>
+      </div>
     </div>
   </div>
 </template>
@@ -18,13 +26,13 @@ export default {
       required: true,
     }
   },
-  data() {
-    return {
-    }
-  },
-  created() {},
-  beforeMount() {},
   methods: {
+    forwards() {
+      eventHub.$emit('iteratePopoverImage', 1)
+    },
+    backwards() {
+      eventHub.$emit('iteratePopoverImage', -1)
+    },
     close() {
       eventHub.$emit('closePopover')
     }
@@ -41,12 +49,15 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
    
     img {
-      max-height: 80%;
+      max-height: 90vh;
+      max-width: 90vw;
 
       @media screen and (max-width: 600px) {
-        max-width: 90vw;
+        max-width: 95vw;
       }
     }
 
