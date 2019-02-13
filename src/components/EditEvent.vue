@@ -78,7 +78,7 @@
             :cols="grid.cols"
             :breakpoints="grid.breakpoints"
             :autoSize="true"
-            :is-draggable="true"
+            :is-draggable="reorder"
             :is-resizable="false"
             :is-mirrored="false"
             :margin="[10, 10]"
@@ -98,6 +98,12 @@
             </grid-item>
           </grid-layout>
         </div>
+
+    
+    <div class="tools">
+      <button class="button" @click="reorder = !reorder" v-bind:class="{ active: reorder }">{{reorder ? 'submit' : 'reoder' }}</button>
+    </div>
+    {{ reorder }}
 
   </div>
 </template>
@@ -127,6 +133,7 @@ export default {
       showAutocompleted: false,
       selectedPlace: undefined,
       imageGrid: undefined,
+      reorder: false,
       grid: {
         cols: { lg: 6, md: 5, sm: 4, xs: 3, xxs: 2 },
         rows: { lg: 216, md: 240, sm: 280, xs: 250, xxs: 150 },
@@ -226,6 +233,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .tools {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+
+    > button {
+      border: 2.5px solid #c91119;
+      background-color: white;
+      color: #c91119;
+
+      &:hover, &:active, &:focus, &.active {
+        color: white;
+        background-color: #c91119;
+      }
+    }
+  }
+
   .image-grid {
     max-width: 1445px;
   }
