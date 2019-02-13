@@ -9,7 +9,7 @@
 
 
     <Popover class="popup" v-if="popoverShow" :image="popoverImage"></Popover>
-    <router-link to="edit">Edit Page</router-link>
+    <router-link to="edit" v-bind:class="{ disableScroll: popoverShow }">Edit Page</router-link>
 
     <event-page></event-page>
   </div>
@@ -53,6 +53,10 @@
 </script>
 
 <style language="scss">
+  .disableScroll {
+    overflow: hidden;
+  }
+
   h2 {
     text-align: center;
     font-weight: normal;
