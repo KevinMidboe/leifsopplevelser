@@ -128,9 +128,9 @@ export default {
       selectedPlace: undefined,
       imageGrid: undefined,
       grid: {
-        cols: { lg: 6, md: 4, sm: 3, xs: 2, xxs: 2 },
+        cols: { lg: 6, md: 5, sm: 4, xs: 3, xxs: 2 },
         rows: { lg: 216, md: 240, sm: 280, xs: 250, xxs: 150 },
-        breakpoints: { lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }
+        breakpoints: { lg: 1200, md: 996, sm: 800, xs: 600, xxs: 0 }
       },
       layout: [
         {"x":0,"y":0,"w":1,"h":1,"i":"0",img:"https://upload.wikimedia.org/wikipedia/commons/f/f9/Obama_portrait_crop.jpg"},
@@ -289,6 +289,12 @@ export default {
     padding-right: 0px;
     width: 100%;
     max-width: 612px;
+
+
+  
+
+
+    margin-bottom: 4rem;
   }
 
   .cont2 {
