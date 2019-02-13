@@ -128,8 +128,8 @@ export default {
       selectedPlace: undefined,
       imageGrid: undefined,
       grid: {
-        cols: { lg: 6, md: 4, sm: 3, xs: 2, xxs: 1 },
-        rows: { lg: 216, md: 240, sm: 280, xs: 250, xxs: 400 },
+        cols: { lg: 6, md: 4, sm: 3, xs: 2, xxs: 2 },
+        rows: { lg: 216, md: 240, sm: 280, xs: 250, xxs: 150 },
         breakpoints: { lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }
       },
       layout: [
