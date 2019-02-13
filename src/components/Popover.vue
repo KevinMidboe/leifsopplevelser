@@ -1,9 +1,11 @@
 <template>
-  <div>
-    <div class="popover" @click="close" v-touch:swipe.left="backwards" v-touch:swipe.right="forwards">
+  <div class="popover" @click="close" v-touch:swipe.left="backwards" v-touch:swipe.right="forwards">
+    <div class="popover-content">
       <div class="image-container">
         <img :src="image.url" />
       </div>
+
+      <div class="other-elements"></div>
     </div>
     <div style="position: fixed; width: 100%; bottom: 2rem">
       <div style="display: block; width: max-content; margin: 0 auto;">
@@ -55,15 +57,23 @@ export default {
 
 <style lang="scss" scoped>
   .popover {
-    height: 100%;
-    width: 100%;
     position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
     background-color: rgba(0,0,0,0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    flex-direction: column;
+
+    &-content {
+      height: 100%;
+      // margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      // flex-direction: column;
+      overflow: auto;
+    }
    
     img {
       max-height: 90vh;
@@ -72,6 +82,11 @@ export default {
       @media screen and (max-width: 600px) {
         max-width: 95vw;
       }
+    }
+
+    .other-elements {
+      // height: 2000px;
+      background-color: NavajoWhite;
     }
 
     .hover-options {
