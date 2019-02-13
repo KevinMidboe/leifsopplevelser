@@ -31,7 +31,7 @@
               <div class="form-item field text required">
                 <label class="title" for="text3-field">Sted<span class="required">*</span></label>
                 
-                <input class="field-element text" v-model="locationInput" @click="show" type="text">
+                <input class="field-element text" v-model="locationInput" v-on:keydown.enter.prevent @click="show" type="text">
 
                 <ul class="field-autocompleted" v-click-outside="hide" v-if="showAutocompleted && features.length > 1">
                   <li v-for="result in features" @click="choosePlace(result)">{{ result.place_name_no }}</li>
