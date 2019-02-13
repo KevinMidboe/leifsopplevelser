@@ -52,14 +52,14 @@ export default {
         },
         {
           type: 'image',
-          name: 'Two brothers meant for each other',
-          url: 'http://localhost:3000/uploads/avatars/responsive/eea452299eba7225036aa836f35d86d0_lg.png'
+          name: 'Two brothers and a mountain that could never beat them',
+          url: 'https://api.kevinmidboe.com/files/images/DSC_9029.JPG'
         },
-        {
-          type: 'image',
-          name: 'Two brothers meant for each other',
-          url: 'http://localhost:3000/uploads/avatars/responsive/eea452299eba7225036aa836f35d86d0_xs.png'
-        }
+        // {
+        //   type: 'image',
+        //   name: 'Two brothers meant for each other',
+        //   url: 'http://localhost:3000/uploads/avatars/responsive/eea452299eba7225036aa836f35d86d0_xs.png'
+        // }
       ]
     }
   },
