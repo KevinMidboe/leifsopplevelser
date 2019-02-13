@@ -5,10 +5,12 @@ import App from './App'
 import router from './routes'
 import axios from 'axios'
 import BootstrapVue from 'bootstrap-vue'
-
+import Vue2TouchEvents from 'vue2-touch-events'
+ 
 Vue.config.productionTip = false
 
 window.eventHub = new Vue();
+Vue.use(Vue2TouchEvents)
 
 new Vue({
   el: '#app',

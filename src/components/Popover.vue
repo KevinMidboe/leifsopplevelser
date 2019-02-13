@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="popover" @click="close">
+    <div class="popover" @click="close" v-touch:swipe.left="backwards" v-touch:swipe.right="forwards">
       <div class="image-container">
         <img :src="image.url" />
       </div>
@@ -26,6 +26,9 @@ export default {
       required: true,
     }
   },
+  created() {
+    window.addEventListener('keyup', this.arrowNavigation)
+  },
   methods: {
     forwards() {
       eventHub.$emit('iteratePopoverImage', 1)
@@ -33,8 +36,18 @@ export default {
     backwards() {
       eventHub.$emit('iteratePopoverImage', -1)
     },
+    arrowNavigation(event) {
+      if (event.key === 'ArrowLeft') {
+        this.backwards()
+      } else if (event.key === 'ArrowRight') {
+        this.forwards()
+      }
+    },
     close() {
       eventHub.$emit('closePopover')
+    },
+    beforeDestroy() {
+      window.removeEventListener('keyup')
     }
   }
 }
