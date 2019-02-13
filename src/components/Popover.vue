@@ -10,6 +10,7 @@
       
       </div>
     </div>
+    
     <div style="position: fixed; width: 100%; bottom: 2rem">
       <div style="display: block; width: max-content; margin: 0 auto;">
         <button @click="backwards">Backwards</button>

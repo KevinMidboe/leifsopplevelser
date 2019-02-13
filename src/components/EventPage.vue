@@ -1,5 +1,11 @@
 <template>
   <div>
+    <div class="form">
+      <router-link to="edit">
+        <button class="button" type="submit">Rediger</button>
+      </router-link>
+    </div>
+
     <div class="gallery">
       <div class="gallery--header">
         <h1>Topptur til gaustadtoppen æøå {{ id }}</h1>
@@ -79,6 +85,44 @@ export default {
         color: #3b70a2;
       }
     }
+  }
+}
+
+.form {
+  display: absolute;
+  float: right;
+  margin-top: 1rem;
+  margin-right: 1rem;
+
+}
+.button {
+  -webkit-appearance: none;
+  -webkit-backface-visibility: none;
+  border: 2.5px solid #c91119;
+  border-radius: 3px;
+  // color: rgb(255, 255, 255);
+  background-color: white;
+  color: #c91119;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  height: 42px;
+  letter-spacing: 1px;
+  line-height: 14px;
+  margin-left: -10px;
+  padding: 0 1rem;
+  text-transform: uppercase;
+  transition-delay: 0s;
+  transition-duration: 0.1s;
+  transition-property: opacity;
+  transition-timing-function: linear;
+  vertical-align: baseline;
+  white-space: pre;
+  writing-mode: horizontal-tb;
+
+  &:hover, &:active, &:focus {
+    color: white;
+    background-color: #c91119;
   }
 }
 </style>

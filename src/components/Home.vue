@@ -9,7 +9,6 @@
 
 
     <Popover class="popup" v-if="popoverShow" :image="popoverImage"></Popover>
-    <router-link to="edit">Edit Page</router-link>
 
     <event-page style="height: 100%; overflow: auto;"></event-page>
   </div>
