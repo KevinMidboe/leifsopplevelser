@@ -10,7 +10,10 @@
 
     <Popover class="popup" v-if="popoverShow" :image="popoverImage"></Popover>
 
-    <event-page style="height: 100%; overflow: auto;"></event-page>
+    <div class="container">
+      <h1 class="header">leifs opplevelser</h1>
+      <event-page style="height: 100%; overflow: auto;"></event-page>
+    </div>
   </div>
 </template>
 
@@ -53,10 +56,24 @@
   }
 </script>
 
-<style language="scss">
+<style language="scss" scoped>
+
+  .header {
+    margin-bottom: 5rem;
+  }
 
   h2 {
     text-align: center;
     font-weight: normal;
+  }
+
+  .container {
+    min-height: 1029px;
+
+    margin: 25px auto 85px;
+    padding: 4em;
+    max-width: 888px;
+    /*max-width: 100%;*/
+    background-color: #fff;
   }
 </style>

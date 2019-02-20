@@ -9,8 +9,12 @@
     <div class="gallery">
       <div class="gallery--header">
         <h1>Topptur til gaustadtoppen æøå {{ id }}</h1>
-        <p class="gallery--info">{{ eventDate.from }} - {{ eventDate.until }}</p>
-        <p class="gallery--info">{{ eventLocation }}. <a href="#">Se kart</a></p>
+        <div class="gallery--info">
+          <p>{{ eventDate.from }} - {{ eventDate.until }}</p>
+          <p>{{ eventLocation }}. <a href="#">Se kart</a></p>
+
+          <p>{{ subtext }}</p>
+        </div>
       </div>
 
       <!-- <map-view :cords="cords"></map-view> -->
@@ -34,7 +38,8 @@ export default {
     return {
       eventLocation: 'Oslo, Gardermoen, Norge',
       startDate: undefined,
-      endDate: undefined
+      endDate: undefined,
+      subtext: 'On November 1, 2018, we embarked on our tour with Triathalon. Thank you so much to everyone who came to see us, for buying our merch, for saying hello after the shows, to the amazing hard-working people at the venues, and of course to our team + Live Nation, Ones to Watch, for booking us on our favorite tour this year. And thank you to Claud, Girl Ultra and Kevin Krauter for playing these shows with us. \n\n Here are some of our favorite moments captured by one of our favorite people, Meghan Cummings (@meghancummings). '
     }
   },
   computed: {
@@ -49,29 +54,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.popover {
-  width: 100%;
-  height: 100vh;
-  position: absolute;
-  background-color: rgba(0,0,0,0.7);
-}
 
 .gallery {
-  padding: 2.1rem;
+  // padding: 2.1rem;
 
   &--header {
-    padding-bottom: 4rem;
+    padding-bottom: 1rem;
     // background-color: NavajoWhite;
   }
 
   &--info {
-    font-family: 'Proxima Nova';
-    font-weight: 300;
-    font-style: italic;
-    font-size: 18px;
+    font-size: 15px;
     line-height: 1.6rem;
     letter-spacing: 0rem;
-    color: rgba(0, 0, 0, .7);
+    color: rgba(0, 0, 0, .8);
 
     &:first-of-type {
       margin-top: 0.8rem;
@@ -85,6 +81,13 @@ export default {
         color: #3b70a2;
       }
     }
+  }
+
+  &--subtext {
+    font-size: 15px;
+    line-height: 1.6rem;
+    letter-spacing: 0rem;
+    color: rgba(0, 0, 0, .8);
   }
 }
 

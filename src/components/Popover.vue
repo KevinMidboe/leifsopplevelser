@@ -85,8 +85,8 @@ export default {
     }
    
     img {
-      max-height: 90vh;
-      max-width: 90vw;
+      max-height: 92vh;
+      max-width: 92vw;
 
       @media screen and (max-width: 600px) {
         max-width: 95vw;
