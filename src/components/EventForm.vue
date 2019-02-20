@@ -31,11 +31,8 @@
       <textarea v-model="subtext"></textarea>
     </div>
 
-    <div class="form-item">
-      <label class="title">last opp bilder</label>
-      <input id="file-upload" type="file" @change="processFile" multiple>
-      {{ files.length }}
-    </div>
+
+    <form-element-upload @newFiles="setFiles"></form-element-upload>
 
     <div>
       <button class="button" type="submit">Legg til</button>
@@ -57,10 +54,12 @@
 import axios from 'axios'
 import ClickOutside from 'vue-click-outside'
 import FormElementLocation from './form/FormElementLocation'
+import FormElementUpload from './form/FormElementUpload'
 
 export default {
   components: {
-    FormElementLocation
+    FormElementLocation,
+    FormElementUpload
   },
   data() {
     return {
@@ -68,8 +67,8 @@ export default {
       dateStart: '',
       dateEnd: '',
       chosenLocation: undefined,
+      chosenFiles: undefined,
       subtext: '',
-      files: [],
     }
   },
   computed: {
@@ -81,10 +80,13 @@ export default {
     }
   },
   methods: {
-    setLocation(inputLocation) {
+    setLocation(location) {
       console.log('detected location changed')
-      console.log('inputLocation', inputLocation)
-      this.chosenLocation = inputLocation;
+      console.log('inputLocation', location)
+      this.chosenLocation = location;
+    },
+    setFiles(files) {
+      this.chosenFiles = files;
     },
     processForm: function() {
       let data = {
@@ -111,177 +113,12 @@ export default {
       .then((resp) => console.log('response from posting to server:', resp))
       .catch((error) => console.error('error from post request:', error))
     },
-    processFile(event) {
-      this.files = event.target.files;
-      console.log('files', this.files)
-    },
   }
 }
   
 </script>
 
 <style lang="scss" scoped>
-.form {
-  box-shadow: rgba(128, 128, 128, 0) 0px 0px 0px 1px inset;
-  clear: both;
-  color: rgba(0, 0, 0, 0.701961);
-  letter-spacing: normal;
-  line-height: 22.399999618530273px;
-  outline-color: rgba(0, 0, 0, 0.701961);
-  outline-style: none;
-  outline-width: 0px;
-  padding: 0px 15px 17px;
-  position: relative;
-  transition-delay: 0s;
-  transition-duration: 0.2s;
-  transition-property: box-shadow;
-  transition-timing-function: ease-in-out;
-
-
-  &-item {
-    border-width: 0px;
-    color: rgba(0, 0, 0, 0.701961);
-    display: block;
-    font-family: 'Proxima Nova';
-    font-size: 14px;
-    line-height: 17px;
-    margin: 0 0 1rem -12px;
-    min-width: min-content;
-    padding: 0px;
-
-    & .title {
-      color: rgba(0, 0, 0, 0.701961);
-      display: block;
-      font-family: 'Proxima Nova';
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 300;
-      height: 17px;
-      letter-spacing: normal;
-      line-height: 17px;
-    }
-
-    & .field {
-      display: block;
-      float: left;
-      // margin-bottom: 24px;
-      position: relative;
-      width: 290.9375px;
-
-      @media screen and (max-width: 650px) {
-        max-width: 40vw;
-        min-width: 120px;
-      }
-
-      &:last-of-type {
-        margin-left: 11px;
-      }
-
-      & .caption {
-        cursor: pointer;
-        display: inline;
-        font-family: 'Proxima Nova';
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 300;
-        height: auto;
-        letter-spacing: normal;
-        line-height: 14px;
-      }
-    }
-  }
-
-  & input {
-    -webkit-appearance: none;
-    -webkit-rtl-ordering: logical;
-    -webkit-user-select: text;
-    background-color: rgb(250, 250, 250);
-
-    border: 1px solid rgb(204, 204, 204);
-    border-radius: 3px;
-    border-image-outset: 0px;
-    border-image-repeat: stretch;
-    border-image-slice: 100%;
-    border-image-source: none;
-    border-image-width: 1;
-    box-sizing: border-box;
-    cursor: auto;
-    display: inline-block;
-   
-    height: 42px;
-    font-family: 'Proxima Nova';
-    letter-spacing: normal;
-    font-size: 14px;
-    line-height: 16px;
-    margin: 6px 0 4px;
-    padding: 12px;
-
-    width: 100%;
-  }
-
-  & textarea {
-    -webkit-appearance: none;
-    -webkit-rtl-ordering: logical;
-    -webkit-user-select: text;
-    border-color: rgb(204, 204, 204);
-    border-left-radius: 2px;
-    border-right-radius: 2px;
-    border-style: solid;
-    border-width: 1px;
-
-    font-family: 'Proxima Nova';
-    letter-spacing: normal;
-    font-size: 14px;
-
-    box-sizing: border-box;
-
-    line-height: 14px;
-    margin: 6px 0px 4px;
-    min-height: 100px;
-    overflow-x: auto;
-    overflow-y: auto;
-    padding: 12px;
-    resize: vertical;
-    text-align: start;
-    text-indent: 0px;
-    text-shadow: none;
-    text-transform: none;
-    vertical-align: top;
-    white-space: pre-wrap;
-    width: 100%;
-    word-spacing: 0px;
-    word-wrap: break-word;
-    writing-mode: horizontal-tb;
-  }
-}
-
-.field-autocompleted {
-  width: calc(100% - 1.26rem);
-  position: absolute;
-  padding: 0;
-  margin: 0;
-  margin-top: -6px;
-  background-color: white;
-
-  li {
-    list-style: none;
-    height: 2.3rem;
-    line-height: 2.3rem;
-    padding-left: 0.5rem;
-    white-space: nowrap;
-    overflow: hidden;
-
-    &:hover {
-      background-color: #e6e6e6;
-      cursor: pointer;
-    }
-  }
-  
-  border-color: rgb(204, 204, 204);
-  border-radius: 2px;
-  border-style: solid;
-  border-width: 1px;
-}
 
 
 .button {

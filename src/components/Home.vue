@@ -6,10 +6,6 @@
     {{ date }} -->
     <!-- <Header></Header> -->
     
-
-
-    <Popover class="popup" v-if="popoverShow" :image="popoverImage"></Popover>
-
     <div class="container">
       <h1 class="header">leifs opplevelser</h1>
       <event-page style="height: 100%; overflow: auto;"></event-page>
@@ -18,42 +14,37 @@
 </template>
 
 <script>
-  import Header from '@/components/Header'
-  import EventPage from '@/components/EventPage'
-  import Popover from '@/components/Popover'
+import Header from '@/components/Header'
+import EventPage from '@/components/EventPage'
 
-  export default {
-    components: { Header, EventPage, Popover },
-    data() {
-      return {
-        title: 'Leifs opplevelser',
-        date: undefined,
-        bool: false,
-        popoverImage: undefined,
-        popoverShow: false
-      }
-    },
-    created() {
-      this.date = new Date();
-      eventHub.$on('openPopover', this.openPopover)
-      eventHub.$on('closePopover', this.closePopover)
-    },
-    methods: {
-      openPopover(image) {
-        this.popoverImage = image;
-        this.popoverShow = true;
-        document.body.classList.add('disableScroll');
-      },
-      closePopover(image) {
-        this.popoverShow = false;
-        document.body.classList.remove('disableScroll');
-      },
-      navigate: function() {
-        console.log(this.$router)
-        this.$router.push('/edit');
-      }
+export default {
+  components: { Header, EventPage },
+  data() {
+    return {
+      title: 'Leifs opplevelser',
+      date: undefined,
+      bool: false,
+
+    }
+  },
+ 
+  methods: {
+    // openPopover(url) {
+    //   console.log('popover received with', url)
+    //   this.popoverImage = url;
+    //   this.popoverShow = true;
+    //   document.body.classList.add('disableScroll');
+    // },
+    // closePopover(url) {
+    //   this.popoverShow = false;
+    //   document.body.classList.remove('disableScroll');
+    // },
+    navigate: function() {
+      console.log(this.$router)
+      this.$router.push('/edit');
     }
   }
+}
 </script>
 
 <style language="scss" scoped>

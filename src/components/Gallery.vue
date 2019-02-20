@@ -2,7 +2,7 @@
   <div class="gallery-container">
 
     <div v-for="(item, key) in gallery">
-      <gallery-image v-if="item.type === 'image'" :image="item" @click="imageSelected"></gallery-image> 
+      <gallery-image v-if="item.type === 'image'" :image="item" :index="key" @click="imageSelected"></gallery-image> 
       <gallery-text v-if="item.type === 'text'" :text="item"></gallery-text> 
     </div>
   </div>
@@ -11,6 +11,9 @@
 <script>
 import GalleryImage from '@/components/GalleryImage'
 import GalleryText from '@/components/GalleryText'
+
+import { mapGetters } from 'vuex'
+import store from '@/store'
 
 export default {
   name: 'Gallery-Item',
@@ -64,12 +67,20 @@ export default {
     }
   },
   created() {
-    eventHub.$on('iteratePopoverImage', this.iteratePopoverImage)
+    this.setPopoverAlbum(this.gallery)
   },
-  methods: {
+  watch: {
+    gallery: function (val) {
+      this.setPopoverAlbum(val)
+    }
+  },
+  methods: {    
+    setPopoverAlbum: (album) => store.dispatch('setPopoverAlbum', album),
+
     imageSelected(image) {
+      console.log('selected image', image)
       this.selected = image;
-      console.log(this.selected.name)
+      // store.dispatch('incrementPopoverImage', this.selectedIndexInGallery())
     },
     selectedIndexInGallery() {
       const gallery = this.gallery;
@@ -82,20 +93,6 @@ export default {
       }
       return -1;
     },
-    iteratePopoverImage(direction) {
-      let i = this.selectedIndexInGallery() + direction;
-
-      // Overflow handler
-      if (i >= this.gallery.length) {
-        i = 0;
-      } else if (i == -1) {
-        i = this.gallery.length - 1;
-      }
-
-      let image = this.gallery[i];
-      eventHub.$emit('openPopover', image);
-      this.selected = image;
-    }
   }
 }
 </script>

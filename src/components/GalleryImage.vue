@@ -1,31 +1,31 @@
 <template>
   <div>
-      <img :src="image.url" @click="popOver(image)"/>
+    {{ index }}
+      <img :src="image.url" @click="popover(image)"/>
       <p>{{ image.name }}</p>
   </div>
 </template>
 
 <script>
+import store from '@/store'
 
 export default {
-  components: {
-
-  },
   props: {
     image: {
       type: Object,
       required: true
+    },
+    index: {
+      type: Number,
     }
   },
-  data() {
-    return {
-    }
-  },
-  created() {},
-  beforeMount() {},
   methods: {
-    popOver(image) {
-      eventHub.$emit('openPopover', image);
+    showPopover: () => store.dispatch('showPopover'),
+    setPopoverAlbumIndex: (index) => store.dispatch('setPopoverAlbumIndex', index),
+
+    popover(image) {
+      this.setPopoverAlbumIndex(this.index)
+      this.showPopover()
       this.$emit('click', image)
     }
   }

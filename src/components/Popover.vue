@@ -1,8 +1,8 @@
 <template>
-  <div class="popover" @click="close" v-touch:swipe.left="backwards" v-touch:swipe.right="forwards">
+  <div class="popover" @click="hidePopover" v-touch:swipe.left="backwards" v-touch:swipe.right="forwards">
     <div class="popover-content">
       <div class="image-container">
-        <img :src="image.url" />
+        <img :src="album[index].url" />
       
         <div class="other-elements">
           <p>There is something here</p>
@@ -21,36 +21,30 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import store from '@/store'
 
 export default {
-  components: {
-
-  },
-  props: {
-    image: {
-      type: Object,
-      required: true,
-    }
+  computed: {
+    album: () => store.getters.popoverAlbum,
+    index: () => store.getters.popoverAlbumIndex,
   },
   created() {
     window.addEventListener('keyup', this.arrowNavigation)
   },
   methods: {
-    forwards() {
-      eventHub.$emit('iteratePopoverImage', 1)
-    },
-    backwards() {
-      eventHub.$emit('iteratePopoverImage', -1)
-    },
+    hidePopover: () => store.dispatch('hidePopover'),
+    forwards: () => store.dispatch('incrementPopoverImage'),
+    backwards: () => store.dispatch('decrementPopoverImage'),
+
     arrowNavigation(event) {
       if (event.key === 'ArrowLeft') {
         this.backwards()
       } else if (event.key === 'ArrowRight') {
         this.forwards()
+      } else if (event.key === 'Escape') {
+        this.hidePopover()
       }
-    },
-    close() {
-      eventHub.$emit('closePopover')
     },
     beforeDestroy() {
       window.removeEventListener('keyup')

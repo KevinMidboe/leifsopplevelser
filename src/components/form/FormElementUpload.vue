@@ -1,0 +1,111 @@
+<template>
+  <div class="form-item">
+    <label class="title">last opp bilder</label>
+
+    <input id="file-upload" type="file" @change="processFile" multiple>
+    <div class="previewWindow" v-if="files.length">
+      <p class="previewWindow--title">{{ files.length }} bilder lagt til</p>
+      <div class="previewWindow--image">
+        <img v-for="file in files" :src="file.url" @click="popOver(file)"/>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import store from '@/store'
+
+export default {
+  data() {
+    return {
+      files: [],
+      previewFiles: []
+    }
+  },
+  watch: {
+    files() {
+      this.$emit('newFiles', this.files)
+    }
+  },
+  methods: {
+    setPopoverAlbum: (album) => store.dispatch('setPopoverAlbum', album),
+    setPopoverAlbumIndex: (index) => store.dispatch('setPopoverAlbumIndex', index),
+    showPopover: () => store.dispatch('showPopover'),
+
+    processFile(event) {
+      const files = event.target.files;
+      let album = []
+
+      for (var i = files.length - 1; i >= 0; i--) {
+        album.push({
+          url: URL.createObjectURL(files[i]),
+          index: i,
+        })
+      }
+      album.reverse()
+
+      this.setPopoverAlbum(album)
+      this.files = album;
+    },
+    popOver(image) {
+      console.log('popover called')
+      this.setPopoverAlbumIndex(image.index)
+      this.showPopover()
+      // EventBus.$emit('openPopover', image);
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.previewWindow {
+  -webkit-appearance: none;
+  -webkit-rtl-ordering: logical;
+  -webkit-user-select: text;
+  background-color: #fafafa;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  border-image-outset: 0px;
+  border-image-repeat: stretch;
+  border-image-slice: 100%;
+  border-image-source: none;
+  border-image-width: 1;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  cursor: auto;
+  display: inline-block;
+  font-family: 'Proxima Nova';
+  letter-spacing: normal;
+  font-size: 14px;
+  line-height: 16px;
+  width: 100%;
+
+  margin-top: -6px;
+  border-top: unset;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+
+  &--title {
+    padding-left: 0.6rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    margin-bottom: 0.8rem;
+    width: calc(100% - 0.6rem);
+    font-size: 1rem;
+    border-bottom: 1px solid #cccccc;
+  }
+
+
+  &--image {
+    width: 100%;
+
+    & img {
+      padding: 0.2rem;
+      width: calc(25% - 0.4rem);
+      height: auto;
+    }
+    vertical-align: middle;
+    // max-width: 250px;
+  }
+}
+</style>
