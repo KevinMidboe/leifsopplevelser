@@ -7,7 +7,7 @@
       <event-form></event-form>
     </div>
 
-    <div class="image-grid">
+    <!-- <div class="image-grid">
       <grid-layout
         ref="imageGrid"
         :layout.sync="layout"
@@ -36,13 +36,13 @@
           </div>
         </grid-item>
       </grid-layout>
-    </div>
+    </div> -->
 
-    
+<!--     
     <div class="tools">
       <button class="button" @click="reorder = !reorder" v-bind:class="{ active: reorder }">{{reorder ? 'submit' : 'reoder' }}</button>
-    </div>
-    {{ reorder }}
+    </div> -->
+    <!-- {{ reorder }} -->
 
   </div>
 </template>

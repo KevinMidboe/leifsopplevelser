@@ -6,7 +6,8 @@
     <div class="previewWindow" v-if="files.length">
       <p class="previewWindow--title">{{ files.length }} bilder lagt til</p>
       <div class="previewWindow--image">
-        <img v-for="file in files" :src="file.url" @click="popOver(file)"/>
+        <!-- <img v-for="file in files" :src="file.url" @click="popOver(file)"/> -->
+        <div class="img" v-for="file in files" v-bind:style="{ 'background-image': `url(${file.url}`}" @click="popOver(file)"></div>
       </div>
     </div>
   </div>
@@ -98,13 +99,17 @@ export default {
 
   &--image {
     width: 100%;
+    margin-left: 0.1rem;
 
-    & img {
-      padding: 0.2rem;
-      width: calc(25% - 0.4rem);
-      height: auto;
+    & .img {
+      display: inline-block;
+      margin: 0.1rem;
+      width: calc(25% - 0.3rem);
+      height: 100px;
+      background-size: cover;
+      background-origin: content-box;
+      background-repeat: no-repeat;
     }
-    vertical-align: middle;
     // max-width: 250px;
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="form-item required" style="overflow: hidden">
-    {{ highlightedLocation }}
+    <!-- {{ highlightedLocation }} -->
 
     <label class="title">sted<span class="required">*</span></label>
     <input 
