@@ -2,7 +2,7 @@
   <div class="form-item">
     <label class="title">last opp bilder</label>
 
-    <input id="file-upload" type="file" @change="processFile" multiple>
+    <input id="file-upload" type="file" @change="processFiles" multiple>
     <div class="previewWindow" v-if="files.length">
       <p class="previewWindow--title">{{ files.length }} bilder lagt til</p>
       <div class="previewWindow--image">
@@ -33,17 +33,22 @@ export default {
     setPopoverAlbumIndex: (index) => store.dispatch('setPopoverAlbumIndex', index),
     showPopover: () => store.dispatch('showPopover'),
 
-    processFile(event) {
+    processFiles(event) {
       const files = event.target.files;
-      let album = []
+      let mappedFiles = []
+      let album = this.files;
 
+      // Files is a object with index keys so we need to map to a list
       for (var i = files.length - 1; i >= 0; i--) {
-        album.push({
+        mappedFiles.push({
           url: URL.createObjectURL(files[i]),
           index: i,
         })
       }
-      album.reverse()
+
+      mappedFiles.reverse();
+      album = [...album, ...files]
+      console.log('Packed uploaded album:', album)
 
       this.setPopoverAlbum(album)
       this.files = album;
