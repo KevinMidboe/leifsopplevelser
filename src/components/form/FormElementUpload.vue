@@ -36,7 +36,7 @@ export default {
     processFiles(event) {
       const files = event.target.files;
       let mappedFiles = []
-      let album = this.files;
+      let album = this.files || [];
 
       // Files is a object with index keys so we need to map to a list
       for (var i = files.length - 1; i >= 0; i--) {
@@ -47,7 +47,7 @@ export default {
       }
 
       mappedFiles.reverse();
-      album = [...album, ...files]
+      album = album.concat(mappedFiles)
       console.log('Packed uploaded album:', album)
 
       this.setPopoverAlbum(album)
