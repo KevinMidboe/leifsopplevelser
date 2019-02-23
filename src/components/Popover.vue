@@ -1,6 +1,6 @@
 <template>
-  <div class="popover" @click="hidePopover" v-touch:swipe.left="backwards" v-touch:swipe.right="forwards">
-    <div class="popover-content">
+  <div class="popover">
+    <div class="popover-content" @click="hidePopover" v-touch:swipe.left="backwards" v-touch:swipe.right="forwards">
       <div class="image-container">
         <img :src="album[index].url" />
       

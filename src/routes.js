@@ -10,13 +10,13 @@ let routes = [
     components: require('@/components/Home')
   },
   {
-    name: 'Event page',
+    name: 'EventPage',
     path: '/event/:id',
-    props: { default: true },
+    // props: { default: true },
     components: require('@/components/EventPage')
   },
   {
-    name: 'Edit event',
+    name: 'EditEvent',
     path: '/edit',
     components: require('@/components/EditEvent')
   },
@@ -31,7 +31,7 @@ let routes = [
   {
     name: '404',
     path: '*',
-    // components: require('')
+    components: require('@/components/404')
   }
 ];
 

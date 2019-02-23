@@ -1,9 +1,15 @@
 <template>
-  <div class="gallery-container">
+  <div>
+    <button @click="toggleView">Toggle view</button>
 
-    <div v-for="(item, key) in gallery">
-      <gallery-image v-if="item.type === 'image'" :image="item" :index="key" @click="imageSelected"></gallery-image> 
-      <gallery-text v-if="item.type === 'text'" :text="item"></gallery-text> 
+    <div class="gallery-container">
+
+      
+      <div v-for="(item, key) in gallery">
+        <gallery-image v-if="item.type === 'image'" :image="item" :index="key" :wide="wide" @click="imageSelected"></gallery-image> 
+        <gallery-text v-if="item.type === 'text'" :text="item"></gallery-text> 
+      </div>
+
     </div>
   </div>
 </template>
@@ -27,6 +33,7 @@ export default {
   data() {
     return {
       selected: undefined,
+      wide: false,
       gallery: [
         {
           type: 'image',
@@ -74,7 +81,10 @@ export default {
       this.setPopoverAlbum(val)
     }
   },
-  methods: {    
+  methods: {
+    toggleView() {
+      this.wide = !this.wide;
+    },
     setPopoverAlbum: (album) => store.dispatch('setPopoverAlbum', album),
 
     imageSelected(image) {

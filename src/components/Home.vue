@@ -6,39 +6,49 @@
     {{ date }} -->
     <!-- <Header></Header> -->
     
-    <div class="container">
-      <h1 class="header">leifs opplevelser</h1>
-      <event-page style="height: 100%; overflow: auto;"></event-page>
+    <div class="header">
+      <h1>{{ title }}</h1>
     </div>
+
+    <calendar :long="false"></calendar>
+    
+    <div class="container" v-for="event in events">
+      <event-page :eventData="event"></event-page>
+    </div>
+
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
 import Header from '@/components/Header'
 import EventPage from '@/components/EventPage'
+import Calendar from '@/components/Calendar'
+import Footer from '@/components/Footer'
 
 export default {
-  components: { Header, EventPage },
+  components: { Header, EventPage, Calendar, Footer },
   data() {
     return {
-      title: 'Leifs opplevelser',
-      date: undefined,
-      bool: false,
+      title: 'leifs opplevelser',
+      events: undefined
 
     }
   },
+  beforeMount() {
+    this.fetchEvents()
+  },
  
   methods: {
-    // openPopover(url) {
-    //   console.log('popover received with', url)
-    //   this.popoverImage = url;
-    //   this.popoverShow = true;
-    //   document.body.classList.add('disableScroll');
-    // },
-    // closePopover(url) {
-    //   this.popoverShow = false;
-    //   document.body.classList.remove('disableScroll');
-    // },
+    fetchEvents() {
+      fetch('http://localhost:5000/api/adventure')
+      .then(resp => resp.json())
+      .then((data) => {
+        console.log('response from fetch events', data)
+        this.events = data;
+      })
+      .catch((error) => console.log('unable to fetch events from api; error message:', error))
+    },
     navigate: function() {
       console.log(this.$router)
       this.$router.push('/edit');
@@ -50,7 +60,10 @@ export default {
 <style language="scss" scoped>
 
   .header {
-    margin-bottom: 5rem;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 2.5rem 0rem 2rem 3.5rem;
+    /*margin-bottom: 5rem;*/
   }
 
   h2 {
@@ -58,13 +71,4 @@ export default {
     font-weight: normal;
   }
 
-  .container {
-    min-height: 1029px;
-
-    margin: 25px auto 85px;
-    padding: 4em;
-    max-width: 888px;
-    /*max-width: 100%;*/
-    background-color: #fff;
-  }
 </style>

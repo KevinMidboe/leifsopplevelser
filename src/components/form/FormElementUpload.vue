@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import store from '@/store'
 
 export default {
@@ -33,8 +34,24 @@ export default {
     setPopoverAlbumIndex: (index) => store.dispatch('setPopoverAlbumIndex', index),
     showPopover: () => store.dispatch('showPopover'),
 
+    uploadFiles(fileList) {
+      console.log('sending fileList', fileList)
+      let formData = new FormData();
+      for( var i = 0; i < fileList.length; i++ ){
+        let file = fileList[i];
+        formData.append('images', file, file.name);
+      }
+
+      console.log('formdata', formData)
+      axios.post('http://localhost:5001/upload', formData, { onUploadProgress: progressEvent => console.log(100 * (progressEvent.loaded / progressEvent.totalSize))} )
+      .then((resp) => console.log('response from posting to server:', resp))
+      .catch((error) => console.error('error from post request:', error))
+    },
+
     processFiles(event) {
       const files = event.target.files;
+      this.uploadFiles(event.target.files)
+
       let mappedFiles = []
       let album = this.files || [];
 

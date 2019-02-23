@@ -4,7 +4,8 @@
     <div class="container">
       <h1 class="slipping-left">registrer en ny opplevelse</h1>
       
-      <event-form></event-form>
+      <!-- {{ formData }} -->
+      <event-form v-if="notWaitingForFormdata || formData" :formData="formData"></event-form>
     </div>
 
     <!-- <div class="image-grid">
@@ -64,10 +65,17 @@ export default {
       if (this.imageGrid)
         return this.grid.rows[this.imageGrid.lastBreakpoint]
       return 150
+    },
+    notWaitingForFormdata: function() {
+      if (this.$route.query.id) {
+        return false;
+      }
+      return true;
     }
   },
   data() {
     return {
+      formData: undefined,
       timeout: undefined,
       features: [],
       showAutocompleted: false,
@@ -128,11 +136,25 @@ export default {
       }
     }
   },
-  created() {},
+  created() {
+    const id = this.$route.query.id
+    if (id) {
+      this.fetchById(id)
+    }
+  },
   mounted() {
     this.imageGrid = this.$refs.imageGrid;
   },
   methods: {
+    fetchById(id) {
+      fetch('http://localhost:5000/api/adventure/' + id)
+      .then(resp => resp.json())
+      .then(data => {
+        this.formData = data;
+        console.log('data', data)
+      })
+    },
+
     processForm: function() {
       let data = {
         title: this.title,
@@ -270,20 +292,6 @@ export default {
       margin: 4rem 1rem;
       width: unset;
     }
-  }
-
-
-  .container {
-    color: rgba(0, 0, 0, 0.701961);
-    line-height: 22.399999618530273px;
-    padding-right: 0px;
-    width: 100%;
-    max-width: 612px;
-
-    margin: 0 auto;
-
-
-    margin-bottom: 3rem;
   }
 
 </style>

@@ -34,6 +34,12 @@ import axios from 'axios'
 import ClickOutside from 'vue-click-outside'
 
 export default {
+  props: {
+    inputLocation: {
+      type: Object,
+      required: false
+    }
+  },
   data() {
     return {
       timeout: undefined,
@@ -44,12 +50,17 @@ export default {
       highlightedLocation: -1
     }
   },
+  mounted() {
+    if (this.inputLocation) {
+      this.$refs.listInput.value = this.inputLocation.locationName;
+    }
+  },
   watch: {
     locationInput: function(newVal, preVal) {
       if (newVal === '') {
         this.resultMapboxLocations = []
         return
-      }      
+      }
       console.log('input changed')
       let place = this.chosenLocation ? this.LocationName : false
 
