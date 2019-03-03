@@ -30,6 +30,17 @@ export default {
   created() {
     window.addEventListener('keyup', this.arrowNavigation)
   },
+  mounted() {
+    document.ontouchmove = function (e) {
+      e.preventDefault();
+    }
+  },
+  beforeDestroy() {
+    window.removeEventListener('keyup')
+    document.ontouchmove = function (e) {
+      return true;
+    };
+  },
   methods: {
     hidePopover: () => store.dispatch('hidePopover'),
     forwards: () => store.dispatch('incrementPopoverImage'),
@@ -44,9 +55,6 @@ export default {
         this.hidePopover()
       }
     },
-    beforeDestroy() {
-      window.removeEventListener('keyup')
-    }
   }
 }
 </script>
