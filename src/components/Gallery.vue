@@ -101,7 +101,7 @@ export default {
     display: flex;
     width: 100%;
     flex-direction: row;
-    justify-content: space-evenly;
+    // justify-content: space-evenly;
     flex-wrap: wrap;
     padding: 1rem 0;
   }

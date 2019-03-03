@@ -53,10 +53,11 @@ export default {
 }
 
 img {
-  max-height: 250px;
-  max-width: 250px;
+  max-height: 300px;
+  max-width: 300px;
+  width: 300px;
   cursor: pointer;
-  margin: 0 0.5rem;
+  margin: 0.6rem;
 
   @media screen and (max-width: 600px) {
     background-color: red;
