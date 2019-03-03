@@ -58,7 +58,7 @@ export default {
         images.forEach(image => {
           this.gallery.push({
             type: 'image',
-            url: 'http://localhost:5000/images/' + image.filename
+            url: 'https://leifsopplevelser.no/images/' + image.filename
           })
         })
       })
