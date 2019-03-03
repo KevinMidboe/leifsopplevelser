@@ -42,6 +42,7 @@ export default {
       imagesByAdventureId(this.adventureId)
       .then(images => {
         images.forEach(image => {
+          let [filename, filextension] = image.filename.split('.')
           const url = `${'https://leifsopplevelser.no/assets'}/${filename}_thumb.${filextension}`;
 
           this.files.push({
