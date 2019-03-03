@@ -26,6 +26,8 @@ import EventPage from '@/components/EventPage'
 import Calendar from '@/components/Calendar'
 import Footer from '@/components/Footer'
 
+import { adventureList } from '@/utils/leifsbackend-api'
+
 export default {
   components: { Header, EventPage, Calendar, Footer },
   data() {
@@ -41,13 +43,12 @@ export default {
  
   methods: {
     fetchEvents() {
-      fetch('http://localhost:5000/api/adventure')
-      .then(resp => resp.json())
-      .then((data) => {
-        console.log('response from fetch events', data)
-        this.events = data;
-      })
-      .catch((error) => console.log('unable to fetch events from api; error message:', error))
+      adventureList()
+        .then((data) => {
+          console.log('response from fetch events', data)
+          this.events = data;
+        })
+        .catch((error) => console.log('unable to fetch events from api; error message:', error))
     },
     navigate: function() {
       console.log(this.$router)

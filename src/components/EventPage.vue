@@ -39,6 +39,8 @@ import Gallery from '@/components/Gallery'
 import MapView from '@/components/MapView'
 import moment from 'moment'
 
+import { locationByName } from '@/utils/leifsbackend-api'
+
 export default {
   components: {
     Gallery, MapView
@@ -74,12 +76,8 @@ export default {
     const id = this.$route.params.id;
     console.log('id found', id)
     if (id) {
-      fetch('http://localhost:5000/api/adventure/' + id)
-      .then(resp => {
-        console.log('resp', resp)
-        resp.json()
-      })
-      .then(data => this.eventData = data)
+      adventureById(id)
+        .then(data => this.eventData = data)
     }
   },
   methods: {
@@ -93,16 +91,12 @@ export default {
         return
       }
 
-      var url = new URL('http://localhost:5000/api/location')
-      url.search = new URLSearchParams({ name: this.eventData.locationName })
-
-      fetch(url)
-      .then(resp => resp.json())
-      .then(data => {
-        this.mapboxData = data.mapboxData;
-        this.showMap = true;
-      })
-      .catch((err) => console.log('error fetching locations by name from server. Error:', err))
+      locationByName(this.eventData.locationName)
+        .then(data => {
+          this.mapboxData = data.mapboxData;
+          this.showMap = true;
+        })
+        .catch((err) => console.log('error fetching locations by name from server. Error:', err))
     }
   }
 }

@@ -21,6 +21,9 @@ import GalleryText from '@/components/GalleryText'
 import { mapGetters } from 'vuex'
 import store from '@/store'
 
+import { imagesByAdventureId } from '@/utils/leifsbackend-api'
+
+
 export default {
   name: 'Gallery-Item',
   components: { GalleryImage, GalleryText },
@@ -49,8 +52,7 @@ export default {
     }
   },
   created() {
-    fetch('http://localhost:5000/api/images/' + this.id)
-      .then(resp => resp.json())
+    imagesByAdventureId(this.id)
       .then(images => {
         console.log('events', images)
         images.forEach(image => {

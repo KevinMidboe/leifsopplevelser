@@ -60,6 +60,8 @@ import FormElementLocation from './form/FormElementLocation'
 import FormElementUpload from './form/FormElementUpload'
 import { dateToDayMonthYearDashed } from '@/utils/dates'
 
+import { createAdventure } from '@/utils/leifsbackend-api'
+
 export default {
   components: {
     FormElementLocation,
@@ -118,20 +120,7 @@ export default {
       console.log('Processing form to post to backend with data', data)
 
 
-      fetch('http://localhost:5000/api/adventure', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-
-      // axios.post('localhost:5000/api/adventure', {
-      //   body: JSON.stringify(data)
-      // })
-      .then((resp) => console.log('response from posting to server:', resp))
-      .catch((error) => console.error('error from post request:', error))
+      createAdventure(data)
     },
   }
 }

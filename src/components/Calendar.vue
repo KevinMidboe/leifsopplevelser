@@ -34,6 +34,8 @@ import DayElement from '@/components/calendar/DayElement'
 import MonthSummary from '@/components/calendar/MonthSummary'
 import moment from 'moment'
 
+import { adventureList } from '@/utils/leifsbackend-api'
+
 export default {
   components: { DayElement, MonthSummary },
   props: {
@@ -95,8 +97,7 @@ export default {
         .then(events => this.populateCalendar(events))
     },
     getEvents() {
-      return fetch('http://localhost:5000/api/adventure')
-        .then(resp => resp.json())
+      return adventureList()
         .then(events => {
           console.log('events', events)
           this.eventsFound = events;

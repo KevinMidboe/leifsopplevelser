@@ -54,6 +54,8 @@ import VueGridLayout from 'vue-grid-layout';
 import ClickOutside from 'vue-click-outside'
 import EventForm from './EventForm'
 
+import { adventureById, createAdventure } from '@/utils/leifsbackend-api'
+
 export default {
   components: { 
     GridLayout: VueGridLayout.GridLayout,
@@ -147,12 +149,11 @@ export default {
   },
   methods: {
     fetchById(id) {
-      fetch('http://localhost:5000/api/adventure/' + id)
-      .then(resp => resp.json())
-      .then(data => {
-        this.formData = data;
-        console.log('data', data)
-      })
+      adventureById(id)
+        .then(data => {
+          this.formData = data;
+          console.log('data', data)
+        })
     },
 
     processForm: function() {
@@ -166,19 +167,7 @@ export default {
         mapboxData: this.selectedPlace
       }
 
-      fetch('http://localhost:5000/api/adventure', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-      // axios.post('localhost:5000/api/adventure', {
-      //   body: JSON.stringify(data)
-      // })
-      .then((resp) => console.log('response from posting to server:', resp))
-      .catch((error) => console.error('error from post request:', error))
+      createAdventure(data)
     },
     processFile(event) {
       this.files = event.target.files;

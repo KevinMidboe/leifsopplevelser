@@ -17,6 +17,8 @@
 import axios from 'axios'
 import store from '@/store'
 
+import { createImages } from '@/utils/leifsbackend-api'
+
 export default {
   data() {
     return {
@@ -43,9 +45,11 @@ export default {
       }
 
       console.log('formdata', formData)
-      axios.post('http://localhost:5000/api/upload/' + 1, formData, { onUploadProgress: progressEvent => console.log(100 * (progressEvent.loaded / progressEvent.totalSize))} )
-      .then((resp) => console.log('response from posting to server:', resp))
-      .catch((error) => console.error('error from post request:', error))
+      createImages(formData, 1, this.progressEvent) // passes formData (fileList of images) and adventureId
+    },
+
+    progressEvent(event) {
+      console.log(100 * (event.loaded / event.totalSize))
     },
 
     processFiles(event) {
