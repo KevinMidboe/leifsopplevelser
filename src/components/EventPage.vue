@@ -29,7 +29,7 @@
       <!-- <map-view :cords="cords"></map-view> -->
       <!-- <calendar></calendar> -->
 
-      <gallery :short="false"></gallery>
+      <gallery :short="false" :id="eventData.id"></gallery>
     </div>
   </div>
 </template>

@@ -28,49 +28,16 @@ export default {
     short: {
       default: false,
       type: Boolean
+    },
+    id: {
+      type: Number
     }
   },
   data() {
     return {
       selected: undefined,
       wide: false,
-      gallery: [
-        {
-          type: 'image',
-          name: 'Dress to impress', 
-          url: "https://static1.squarespace.com/static/585040955016e131e74667b0/5a4eeae7ec212d38915e64cd/5a4eeae7419202bdaaeaffc1/1515121386282/The-Marias-Art-2.jpg"
-        },
-        {
-          type: 'image',
-          name: 'Couple',
-          url: 'https://static1.squarespace.com/static/585040955016e131e74667b0/5a4eeae7ec212d38915e64cd/5a4eeaebec212d38915e659c/1515121395460/The-Marias-Art-6.PNG'
-        },
-        {
-          type: 'image',
-          name: 'Nice jacket',
-          url: 'https://static1.squarespace.com/static/585040955016e131e74667b0/5a4eeae7ec212d38915e64cd/5a4eeae8ec212d38915e64d2/1515121386336/The-Marias-Art-3.jpg?format=500w'
-        },
-        // {
-        //   type: 'text',
-        //   title: 'title',
-        //   subtext: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit essecillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-        // },
-        {
-          type: 'image',
-          name: 'plants 4 life',
-          url: 'https://static1.squarespace.com/static/585040955016e131e74667b0/5a4eeae7ec212d38915e64cd/5a4eeaee0852296d709ba5a6/1515121396456/The-Marias-Art-10.PNG?format=500w'
-        },
-        {
-          type: 'image',
-          name: 'Two brothers and a mountain that could never beat them',
-          url: 'https://api.kevinmidboe.com/files/images/DSC_9029.JPG'
-        },
-        // {
-        //   type: 'image',
-        //   name: 'Two brothers meant for each other',
-        //   url: 'http://localhost:3000/uploads/avatars/responsive/eea452299eba7225036aa836f35d86d0_xs.png'
-        // }
-      ]
+      gallery: []
     }
   },
   created() {
@@ -80,6 +47,19 @@ export default {
     gallery: function (val) {
       this.setPopoverAlbum(val)
     }
+  },
+  created() {
+    fetch('http://localhost:5000/api/images/' + this.id)
+      .then(resp => resp.json())
+      .then(images => {
+        console.log('events', images)
+        images.forEach(image => {
+          this.gallery.push({
+            type: 'image',
+            url: 'http://localhost:5000/images/' + image.filename
+          })
+        })
+      })
   },
   methods: {
     toggleView() {
