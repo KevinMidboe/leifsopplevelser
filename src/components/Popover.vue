@@ -11,11 +11,9 @@
       </div>
     </div>
     
-    <div style="position: fixed; width: 100%; bottom: 2rem">
-      <div style="display: block; width: max-content; margin: 0 auto;">
-        <button @click="backwards">Backwards</button>
-        <button @click="forwards">Forwards</button>
-      </div>
+    <div class="navigation">
+      <div class="nav-arrow left" @click="backwards"></div>
+      <div class="nav-arrow right" @click="forwards"></div>
     </div>
   </div>
 </template>
@@ -114,5 +112,83 @@ export default {
         margin-left: 2rem;
       }
     }
+
+  .navigation {
+    position: fixed;
+    width: 100%;
+    top: 50%;
+  }
+
+  .nav-arrow {
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .nav-arrow.left, .nav-arrow.right {
+    width: 15px;
+    height: 25px;
+  }
+
+  .nav-arrow.left {
+    float: left;
+    margin-left: 2rem;
+
+    @media screen and (max-width: 600px) {
+      margin-left: 0.5rem;
+    }
+  }
+
+  .nav-arrow.right {
+    float: right;
+    margin-right: 2rem;
+
+    @media screen and (max-width: 600px) {
+      margin-right: 0.5rem;
+    }
+  }
+
+  .nav-arrow::before, .nav-arrow::after {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+
+  .nav-arrow.left::before, .nav-arrow.left::after {
+    left: 0;
+    border-left: solid 1.5px rgba(255,255,255,.9);
+  }
+
+  .nav-arrow.left::before {
+    top: -50%;
+    transform: rotate(45deg);
+    transform-origin: left bottom;
+  }
+
+  .nav-arrow.left::after {
+    top: 50%;
+    transform: rotate(-45deg);
+    transform-origin: left top;
+  }
+
+  .nav-arrow.right::before, .nav-arrow.right::after {
+    border-right: solid 1.5px rgba(255,255,255,.9);
+    right: 0;
+  }
+
+  .nav-arrow.right::before {
+    top: -50%;
+    transform: rotate(-45deg);
+    transform-origin: right bottom;
+  }
+
+  .nav-arrow.right::after {
+    top: 50%;
+    transform: rotate(45deg);
+    transform-origin: right top;
+  }
+
   }
 </style>
