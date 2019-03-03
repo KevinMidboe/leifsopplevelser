@@ -40,7 +40,8 @@ export default {
     return {
       selected: undefined,
       wide: false,
-      gallery: []
+      gallery: [],
+      ASSET_URL: 'https://leifsopplevelser.no/assets'
     }
   },
   created() {
@@ -56,9 +57,15 @@ export default {
       .then(images => {
         console.log('events', images)
         images.forEach(image => {
+          let [filename, filextension] = image.filename.split('.')
+
+          console.log('filename:', filename)
+          console.log('filextension:', filextension)
+          const url = `${this.ASSET_URL}/${filename}_lg.${filextension}`
+
           this.gallery.push({
             type: 'image',
-            url: 'https://leifsopplevelser.no/images/' + image.filename
+            url
           })
         })
       })
