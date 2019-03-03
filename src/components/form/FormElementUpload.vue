@@ -67,7 +67,7 @@ export default {
       }
 
       console.log('formdata', formData)
-      createImages(formData, 1, this.progressEvent) // passes formData (fileList of images) and adventureId
+      createImages(formData, this.adventureId, this.progressEvent) // passes formData (fileList of images) and adventureId
     },
 
     progressEvent(event) {
