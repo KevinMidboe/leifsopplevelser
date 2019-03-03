@@ -2,7 +2,7 @@
   <div class="popover">
     <div class="popover-content" @click="hidePopover" v-touch:swipe.left="backwards" v-touch:swipe.right="forwards">
       <div class="image-container">
-        <img :src="tempUrl" />
+        <img :src="album[index].url.replace('thumb', 'lg')" />
       
         <div class="other-elements">
           <p>There is something here</p>
@@ -26,8 +26,6 @@ export default {
   computed: {
     album: () => store.getters.popoverAlbum,
     index: () => store.getters.popoverAlbumIndex,
-
-    tempUrl: () => album[index].url.replace('thumb', 'lg')
   },
   created() {
     window.addEventListener('keyup', this.arrowNavigation)
