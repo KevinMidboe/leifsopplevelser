@@ -135,7 +135,7 @@ export default {
     margin-left: 2rem;
 
     @media screen and (max-width: 600px) {
-      margin-left: 0.5rem;
+      display: none;
     }
   }
 
@@ -144,7 +144,7 @@ export default {
     margin-right: 2rem;
 
     @media screen and (max-width: 600px) {
-      margin-right: 0.5rem;
+      display: none;
     }
   }
 
