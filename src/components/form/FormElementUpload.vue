@@ -17,9 +17,15 @@
 import axios from 'axios'
 import store from '@/store'
 
-import { createImages } from '@/utils/leifsbackend-api'
+import { imagesByAdventureId, createImages } from '@/utils/leifsbackend-api'
 
 export default {
+  props: {
+    adventureId: {
+      type: Number,
+      required: false
+    }
+  },
   data() {
     return {
       files: [],
@@ -29,6 +35,21 @@ export default {
   watch: {
     files() {
       this.$emit('newFiles', this.files)
+    }
+  },
+  beforeMount() {
+    if (this.adventureId) {
+      imagesByAdventureId(this.adventureId)
+      .then(images => {
+        images.forEach(image => {
+          const url = `${'https://leifsopplevelser.no/assets'}/${filename}_thumb.${filextension}`;
+
+          this.files.push({
+            type: 'image',
+            url
+          })
+        })
+      })
     }
   },
   methods: {

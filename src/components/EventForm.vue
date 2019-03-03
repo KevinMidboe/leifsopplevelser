@@ -33,7 +33,7 @@
       </div>
 
 
-      <form-element-upload @newFiles="setFiles"></form-element-upload>
+      <form-element-upload @newFiles="setFiles" :adventureId="adventureId"></form-element-upload>
 
 
   <!--         <div class="form-button-wrapper form-button-wrapper--align-left">
@@ -76,6 +76,7 @@ export default {
   },
   data() {
     return {
+      adventureId: undefined,
       title: undefined,
       dateStart: undefined,
       dateEnd: undefined,
@@ -97,6 +98,7 @@ export default {
     
     console.log('formData', formData)
     if (formData) {
+      this.adventureId = formData.id;
       this.title = formData.title;
       this.dateStart = dateToDayMonthYearDashed(formData.dateStart);
       this.dateEnd = dateToDayMonthYearDashed(formData.dateEnd);
