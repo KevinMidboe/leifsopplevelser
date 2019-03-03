@@ -43,7 +43,7 @@ export default {
       }
 
       console.log('formdata', formData)
-      axios.post('http://localhost:5001/upload', formData, { onUploadProgress: progressEvent => console.log(100 * (progressEvent.loaded / progressEvent.totalSize))} )
+      axios.post('http://localhost:5000/api/upload/' + 1, formData, { onUploadProgress: progressEvent => console.log(100 * (progressEvent.loaded / progressEvent.totalSize))} )
       .then((resp) => console.log('response from posting to server:', resp))
       .catch((error) => console.error('error from post request:', error))
     },
