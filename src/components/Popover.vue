@@ -36,7 +36,7 @@ export default {
     }
   },
   destroyed() {
-    window.removeEventListener('keyup')
+    window.removeEventListener('keyup', this.arrowNavigation)
     document.ontouchmove = function (e) {
       return true;
     };
