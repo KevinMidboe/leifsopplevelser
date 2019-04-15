@@ -2,12 +2,11 @@
   <div class="popover">
     <div class="popover-content" @click="hidePopover" v-touch:swipe.left="backwards" v-touch:swipe.right="forwards">
       <div class="image-container">
-        <img :src="album[index].url.replace('thumb', 'lg')" />
+        <img :src="album[index].url" />
       
-        <div class="other-elements">
+        <!-- <div class="other-elements">
           <p>There is something here</p>
-        </div>
-      
+        </div> -->
       </div>
     </div>
     
