@@ -1,7 +1,7 @@
 <template>
   <footer class="footer">
     <div class="start"><a href="mailto:kevin.midboe@gmail.com?Subject=Ref Leifsopplevelser:%20">Kontakt</a></div>
-    <div class="middle">2</div>
+    <div class="middle"><a href="https://github.com/search?q=user%3AKevinMidboe+leifs+in%3Aname&type=Repositories">github</a></div>
     <div class="end">© Kevin Midboe, 2019</div>
   </footer>
 </template>
