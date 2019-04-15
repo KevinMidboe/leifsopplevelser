@@ -16,6 +16,13 @@ html, body {
 
 a {
   cursor: pointer;
+  font-family: 'Ambroise std demi';
+  font-style: normal;
+  color: #3b70a2;
+
+  &:visited {
+    color: #3b70a2;
+  }
 }
 
 #app {
