@@ -166,7 +166,7 @@ export default {
 
   .nav-arrow.left::before, .nav-arrow.left::after {
     left: 0;
-    border-left: solid 1.5px rgba(255,255,255,.9);
+    border-left: solid 2.5px rgba(255,255,255,.9);
   }
 
   .nav-arrow.left::before {
@@ -182,7 +182,7 @@ export default {
   }
 
   .nav-arrow.right::before, .nav-arrow.right::after {
-    border-right: solid 1.5px rgba(255,255,255,.9);
+    border-right: solid 2.5px rgba(255,255,255,.9);
     right: 0;
   }
 
