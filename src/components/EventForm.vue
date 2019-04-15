@@ -12,14 +12,14 @@
         <div class="field first-name">
           <label class="caption">
             <input v-model="dateStart" type="date" spellcheck="false" maxlength="30" :tabindex="2">
-            fra dato
+            fra dato (dd-mm-yyyy)
           </label>
         </div>
 
         <div class="field last-name">
           <label class="caption">
             <input v-model="dateEnd" type="date" spellcheck="false" maxlength="30" :tabindex="3">
-            til dato
+            til dato (dd-mm-yyyy)
           </label>
         </div>
       </fieldset>
