@@ -2,7 +2,13 @@
   <div class="popover">
     <div class="popover-content" @click="hidePopover" v-touch:swipe.left="backwards" v-touch:swipe.right="forwards">
       <div class="image-container">
-        <img :src="album[index].url" />
+        <picture>
+            <source :srcset="album[index].url"
+                    media="(min-width: 1200px)">
+            <source :srcset="album[index].url.replace('_lg.', '_md.')"
+                    media="(min-width: 650px)">
+            <img :src="album[index].url.replace('_lg.', '_sm.')" />
+        </picture>
       
         <!-- <div class="other-elements">
           <p>There is something here</p>
