@@ -15,9 +15,9 @@
 
 
     <div class="calendar">
-      <div v-for="dayName in days" class="calendar--dayName">{{ dayName }}</div>
+      <h3 v-for="dayName in days" class="calendar--dayName">{{ dayName }}</h3>
       <div v-for="(day, index) in cal">
-        <day-element :key="index" :day="day" @click="clickedDay(day)"></day-element>
+        <day-element :key="index" :day="day"></day-element>
       </div>
 
     </div>
@@ -64,10 +64,10 @@ export default {
     this.initCalendar()
   },
   methods: {
-    clickedDay(day) {
-      console.log('clicked', day)
-      if (day.events.length) {
-        this.$router.push({ name: 'EditEvent', query: { id: day.events[0].id } })
+    clickedDay(event=day.events) {
+      console.log('clicked', event)
+      if (event) {
+        this.$router.push({ name: 'EditEvent', query: { id: event.id } })
       } else {
         this.$router.push({name: 'EditEvent', params: { formData: {
           title: undefined,
@@ -172,6 +172,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container {
+  max-width: 90vw;
+}
+
 .header--inline {
   display: flex;
 

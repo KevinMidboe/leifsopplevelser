@@ -4,12 +4,12 @@
 
     <div class="gallery-container" :class="mobileFriendly ? 'mobile' : 'large'">
 
-      <gallery-image v-for="(image, key) in gallery" :image="image" :index="key" :thumbnail="true" @click="imageSelected"></gallery-image>
+      <gallery-image v-for="(image, key) in gallery" :image="image" :key="key" :index="key" :thumbnail="thumbnail" @click="imageSelected"></gallery-image>
 
     </div>
 
     <div class="gallery--load-more">
-      <button class="button">View all</button>
+      <button class="button" @click="viewAll">View all</button>
     </div>
   </div>
 </template>
@@ -38,12 +38,8 @@ export default {
       wide: false,
       gallery: [],
       ASSET_URL: 'https://leifsopplevelser.no/assets',
-      mobileFriendly: undefined
-    }
-  },
-  watch: {
-    gallery: function (val) {
-      this.setPopoverAlbum(val)
+      thumbnail: true,
+      mobileFriendly: false,
     }
   },
   created() {
@@ -64,7 +60,7 @@ export default {
         })
       })
 
-    this.setPopoverAlbum(this.gallery)
+    // this.setPopoverAlbum(this.gallery)
 
     // const that = this;
     // window.addEventListener('resize', function() {
@@ -72,6 +68,8 @@ export default {
     // });
   },
   methods: {
+    viewAll() {
+    },
     setMobileFriendly() {
       const monitor = document.getElementsByClassName('gallery-container');
       const image = document.getElementsByClassName('gallery-image')
@@ -84,6 +82,7 @@ export default {
     },
     toggleView() {
       this.wide = !this.wide;
+      this.thumbnail = !this.thumbnail;
     },
     // setPopoverAlbum: (album) => store.dispatch('setPopoverAlbum', album),
 

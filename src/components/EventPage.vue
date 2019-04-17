@@ -8,7 +8,27 @@
       </router-link>
     </div>
 
-    <div class="gallery">
+
+    <div>
+      <h1>{{ title }}</h1>
+      <div class="eventDescription">
+        <p>{{ eventDuration }}</p>
+        
+        <div v-if="locationName">
+          <span>{{ locationName }}</span>
+          <a @click="showMap = !showMap"> {{ showMap ? 'Lukk kart' : 'Vis kart' }}</a>
+
+          <transition name="slide" class="transition">
+            <map-view v-if="showMap" :locationName="locationName"></map-view>
+          </transition>
+
+          <AdventureGallery :id="eventData.id"></AdventureGallery>
+        </div>
+      </div>
+    </div>
+
+
+<!--     <div class="gallery">
       <div class="gallery--header">
         <h1>{{ eventData.title || title }}</h1>
         <div class="gallery--info">
@@ -26,16 +46,13 @@
         </div>
       </div>
 
-      <!-- <map-view :cords="cords"></map-view> -->
-      <!-- <calendar></calendar> -->
-
       <gallery :short="false" :id="eventData.id"></gallery>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-import Gallery from '@/components/Gallery'
+import AdventureGallery from '@/components/AdventureGallery'
 import MapView from '@/components/MapView'
 import moment from 'moment'
 
@@ -43,7 +60,7 @@ import { locationByName } from '@/utils/leifsbackend-api'
 
 export default {
   components: {
-    Gallery, MapView
+    AdventureGallery, MapView
   },
   props: {
     eventData: {
@@ -135,15 +152,7 @@ margin-bottom: 0px;
       margin-top: 0.8rem;
     }
 
-    a {
-      font-family: 'Ambroise std demi';
-      font-style: normal;
-      color: #3b70a2;
-
-      &:visited {
-        color: #3b70a2;
-      }
-    }
+   
   }
 
   &--subtext {

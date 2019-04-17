@@ -1,9 +1,10 @@
 import axios from 'axios'
 
-const BASE_URL = 'http://localhost:5000/api/'
+// const BASE_URL = 'http://localhost:5000/api/'
+const BASE_URL = 'https://api.leifsopplevelser.no/api/'
 
-function adventureList() {
-  const url = BASE_URL + 'adventure';
+function adventureList(sort='desc') {
+  const url = BASE_URL + `adventure?sort=${sort}`;
   
   return fetch(url)
     .then(resp => resp.json())

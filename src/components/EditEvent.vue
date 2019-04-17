@@ -6,6 +6,8 @@
       
       <!-- {{ formData }} -->
       <event-form v-if="notWaitingForFormdata || formData" :formData="formData"></event-form>
+
+      <AdventureGallery :id="parseInt($route.query.id)"></AdventureGallery>
     </div>
 
     <!-- <div class="image-grid">
@@ -53,6 +55,7 @@ import axios from 'axios'
 import VueGridLayout from 'vue-grid-layout';
 import ClickOutside from 'vue-click-outside'
 import EventForm from './EventForm'
+import AdventureGallery from '@/components/AdventureGallery'
 
 import { adventureById, createAdventure } from '@/utils/leifsbackend-api'
 
@@ -60,7 +63,8 @@ export default {
   components: { 
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
-    EventForm: EventForm
+    EventForm: EventForm,
+    AdventureGallery
   },
   computed: {
     rowHeight: function() {
@@ -274,7 +278,6 @@ export default {
     // background-color: green;
 
     display: block;
-    width: 70vw;
     margin: 4rem auto;
 
     @media screen and (max-width: 650px) {
