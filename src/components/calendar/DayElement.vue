@@ -9,7 +9,7 @@
     </div>
 
     <div v-if="day.events.length > 0" v-for="(event, index) in day.events" class="calendar--event">
-      <span class="calendar--event-title" v-bind:style="{ backgroundColor: eventColors[index] }" @click="clickedEvent(event.id)">{{ eventColors[index] + event.title }}</span>
+      <span class="calendar--event-title" v-bind:style="{ backgroundColor: eventColors[index] }" @click="clickedEvent(event.id)">{{ event.title }}</span>
     </div>
   </div>
 </template>
