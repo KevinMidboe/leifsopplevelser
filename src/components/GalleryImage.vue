@@ -68,8 +68,7 @@ export default {
 }
 
 img {
-  // max-height: 350px;
-  // max-width: 350px;
+  max-width: 90vw;
   // width: 350px;
   cursor: pointer;
   padding: 0.2rem;
