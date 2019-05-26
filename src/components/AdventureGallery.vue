@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="toggleView">Toggle view</button>
+    <!-- <button @click="toggleView">Toggle view</button> -->
 
     <div class="gallery-container" :class="mobileFriendly ? 'mobile' : 'large'">
 

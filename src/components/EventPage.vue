@@ -16,7 +16,9 @@
         
         <div v-if="locationName">
           <span>{{ locationName }}</span>
-          <a @click="showMap = !showMap"> {{ showMap ? 'Lukk kart' : 'Vis kart' }}</a>
+          <div style="margin: 1rem 0">
+            <a @click="showMap = !showMap"> {{ showMap ? 'Lukk kart' : 'Vis kart' }}</a>
+          </div>
 
           <transition name="slide" class="transition">
             <map-view v-if="showMap" :locationName="locationName"></map-view>
