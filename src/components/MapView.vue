@@ -1,23 +1,24 @@
 <template>
-  <div class="map">
+  <div class="map" v-if="mapboxData">
     {{ mapboxData.center }}
     <mapbox
       :access-token="accessToken"
       :map-options="options"
       @map-init="mapInitialized"
-      @map-load="mapLoaded"></mapbox>
+      @map-load="setLocationMarker"></mapbox>
   </div>
 </template>
 
 <script>
 import mapboxgl from 'mapbox-gl';
 import Mapbox from 'mapbox-gl-vue';
+import { locationByName } from '@/utils/leifsbackend-api'
 
 export default {
   components: { Mapbox },
   props: {
-    mapboxData: {
-      type: Object,
+    locationName: {
+      type: String,
       required: true
     }
   },
@@ -25,23 +26,34 @@ export default {
     return {
       marker: undefined,
       map: undefined,
+      mapboxData: undefined,
+      options: undefined,
 
-      accessToken: "pk.eyJ1Ijoia2V2aW5taWRib2UiLCJhIjoiY2pydWhlamQyMHJ2NTRhdGN1em5ndXVyMyJ9.Ejdo_3iuuGOD662Bh6es4w",
-      options: {
+      accessToken: undefined
+    }
+  },
+  async created() {
+    console.log('created')
+    const response = await locationByName(this.locationName);
+    const mapData = response.mapboxData;
+    
+    this.setupMap(mapData)
+    this.mapboxData = mapData;
+  },
+  methods: {
+    setupMap(mapData) {
+      console.log('mapData', mapData)
+      const mapCenter = mapData.center;
+      this.options = {
           style: 'mapbox://styles/kevinmidboe/cjrvwyoft1tij1ftb94f75lqs',
           sprite: 'mapbox://styles/kevinmidboe/cjrvwyoft1tij1ftb94f75lqs',
-          center: this.mapboxData.center,
           zoom: 10,
+          center: mapCenter,
           minZoom: 0,
           maxZoom: 18
       }
-    }
-  },
-  methods: {
-    mapInitialized(map) { this.map = map },
-    mapLoaded() {
-      this.setLocationMarker()
     },
+    mapInitialized(map) { this.map = map },
     setLocationMarker() {
        if(this.marker != undefined) this.marker.remove();
 

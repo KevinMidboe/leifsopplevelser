@@ -3,7 +3,7 @@
     <h1>Summary</h1>
 
     <div v-for="event in events" class="list-item">
-      <router-link :to="{ name: 'EventPage', query: { id: event.id }}">
+      <router-link :to="{ name: 'EditEvent', query: { id: event.id }}">
 
         <h2>{{event.title}}</h2>
         <p>{{ dateToDayMonthYear(event.dateStart) }} - {{ dateToDayMonthYear(event.dateEnd) }}</p>

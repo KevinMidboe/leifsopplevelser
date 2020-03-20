@@ -2,12 +2,17 @@
   <div class="popover">
     <div class="popover-content" @click="hidePopover" v-touch:swipe.left="backwards" v-touch:swipe.right="forwards">
       <div class="image-container">
-        <img :src="album[index].url.replace('thumb', 'lg')" />
+        <picture>
+            <source :srcset="album[index].url"
+                    media="(min-width: 1200px)">
+            <source :srcset="album[index].url.replace('_lg.', '_md.')"
+                    media="(min-width: 650px)">
+            <img :src="album[index].url.replace('_lg.', '_sm.')" />
+        </picture>
       
-        <div class="other-elements">
+        <!-- <div class="other-elements">
           <p>There is something here</p>
-        </div>
-      
+        </div> -->
       </div>
     </div>
     
@@ -36,7 +41,7 @@ export default {
     }
   },
   destroyed() {
-    window.removeEventListener('keyup')
+    window.removeEventListener('keyup', this.arrowNavigation)
     document.ontouchmove = function (e) {
       return true;
     };
@@ -166,7 +171,7 @@ export default {
 
   .nav-arrow.left::before, .nav-arrow.left::after {
     left: 0;
-    border-left: solid 1.5px rgba(255,255,255,.9);
+    border-left: solid 2.5px rgba(255,255,255,.9);
   }
 
   .nav-arrow.left::before {
@@ -182,7 +187,7 @@ export default {
   }
 
   .nav-arrow.right::before, .nav-arrow.right::after {
-    border-right: solid 1.5px rgba(255,255,255,.9);
+    border-right: solid 2.5px rgba(255,255,255,.9);
     right: 0;
   }
 

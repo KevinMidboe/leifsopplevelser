@@ -8,7 +8,29 @@
       </router-link>
     </div>
 
-    <div class="gallery">
+
+    <div>
+      <h1>{{ title }}</h1>
+      <div class="eventDescription">
+        <p>{{ eventDuration }}</p>
+        
+        <div v-if="locationName">
+          <span>{{ locationName }}</span>
+          <div style="margin: 1rem 0">
+            <a @click="showMap = !showMap"> {{ showMap ? 'Lukk kart' : 'Vis kart' }}</a>
+          </div>
+
+          <transition name="slide" class="transition">
+            <map-view v-if="showMap" :locationName="locationName"></map-view>
+          </transition>
+
+          <AdventureGallery :id="eventData.id"></AdventureGallery>
+        </div>
+      </div>
+    </div>
+
+
+<!--     <div class="gallery">
       <div class="gallery--header">
         <h1>{{ eventData.title || title }}</h1>
         <div class="gallery--info">
@@ -26,16 +48,13 @@
         </div>
       </div>
 
-      <!-- <map-view :cords="cords"></map-view> -->
-      <!-- <calendar></calendar> -->
-
       <gallery :short="false" :id="eventData.id"></gallery>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
-import Gallery from '@/components/Gallery'
+import AdventureGallery from '@/components/AdventureGallery'
 import MapView from '@/components/MapView'
 import moment from 'moment'
 
@@ -43,7 +62,7 @@ import { locationByName } from '@/utils/leifsbackend-api'
 
 export default {
   components: {
-    Gallery, MapView
+    AdventureGallery, MapView
   },
   props: {
     eventData: {
@@ -52,57 +71,51 @@ export default {
     }
   },
   computed: {
-    eventDate: function() {
-      return { 
-        from: this.startDate || '28.09.18',
-        until: this.endDate || '12.10.19'
-      }
+    eventDuration: function() {
+      let start = moment(this.startDate).format('DD.MM.YYYY');
+      let end = moment(this.endDate).format('DD.MM.YYYY');
+
+      return `${ start } - ${ end }`
     }
   },
   data() {
     return {
       showMap: false,
       mapboxData: undefined,
-
-      title: 'Topptur til gaustadtoppen',
-      eventLocation: 'Oslo, Gardermoen, Norge',
+      id: undefined,
+      title: undefined,
+      locationName: undefined,
       startDate: undefined,
       endDate: undefined,
-      subtext: 'On November 1, 2018, we embarked on our tour with Triathalon. Thank you so much to everyone who came to see us, for buying our merch, for saying hello after the shows, to the amazing hard-working people at the venues, and of course to our team + Live Nation, Ones to Watch, for booking us on our favorite tour this year. And thank you to Claud, Girl Ultra and Kevin Krauter for playing these shows with us. \n\n Here are some of our favorite moments captured by one of our favorite people, Meghan Cummings (@meghancummings). ',
-      // mapboxData: {"id":"address.3598204582760676","type":"Feature","place_type":["address"],"relevance":1,"properties":{"accuracy":"point"},"text":"Rosendalsveien","place_name":"Rosendalsveien50b,1166Oslo,Norway","center":[10.799471,59.853973],"geometry":{"type":"Point","coordinates":[10.799471,59.853973]},"address":"50b","context":[{"id":"postcode.9489910510813950","text":"1166"},{"id":"place.17289044417596980","short_code":"NO-03","wikidata":"Q585","text":"Oslo"},{"id":"country.16020050790143780","short_code":"no","wikidata":"Q20","text":"Norway"}]}
+      subtext: undefined
     }
   },
   created() {
     const id = this.$route.params.id;
-    console.log('id found', id)
+    console.log('id found', id);
     if (id) {
       adventureById(id)
-        .then(data => this.eventData = data)
+        .then(this.setEventData(data))
+    } else {
+      this.setEventData(this.eventData)
     }
   },
   methods: {
-    dateToDayMonthYear(date) {
-      return moment(date).format('DD.MM.YYYY')
-
+    setEventData(event) {
+      console.log('evnent', event)
+      this.id = event.id;
+      this.title = event.title;
+      this.locationName = event.locationName;
+      this.startDate = event.dateStart;
+      this.endDate = event.dateEnd;
+      this.subtext = event.subtext;
     },
-    toggleMap() {
-      if (this.showMap) {
-        this.showMap = false
-        return
-      }
-
-      locationByName(this.eventData.locationName)
-        .then(data => {
-          this.mapboxData = data.mapboxData;
-          this.showMap = true;
-        })
-        .catch((err) => console.log('error fetching locations by name from server. Error:', err))
-    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import '../scss/buttons.scss';
 
 .slide-enter-active, .slide-leave-active {
 transition: margin-bottom .1s ease-out;
@@ -141,15 +154,7 @@ margin-bottom: 0px;
       margin-top: 0.8rem;
     }
 
-    a {
-      font-family: 'Ambroise std demi';
-      font-style: normal;
-      color: #3b70a2;
-
-      &:visited {
-        color: #3b70a2;
-      }
-    }
+   
   }
 
   &--subtext {
@@ -167,34 +172,5 @@ margin-bottom: 0px;
   margin-right: 1rem;
 
 }
-.button {
-  -webkit-appearance: none;
-  -webkit-backface-visibility: none;
-  border: 2.5px solid #c91119;
-  border-radius: 3px;
-  // color: rgb(255, 255, 255);
-  background-color: white;
-  color: #c91119;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  height: 42px;
-  letter-spacing: 1px;
-  line-height: 14px;
-  margin-left: -10px;
-  padding: 0 1rem;
-  text-transform: uppercase;
-  transition-delay: 0s;
-  transition-duration: 0.1s;
-  transition-property: opacity;
-  transition-timing-function: linear;
-  vertical-align: baseline;
-  white-space: pre;
-  writing-mode: horizontal-tb;
 
-  &:hover, &:active, &:focus {
-    color: white;
-    background-color: #c91119;
-  }
-}
 </style>

@@ -6,7 +6,8 @@ Vue.use(Vuex)
 const state = {
   popover: false,
   popoverAlbum: [],
-  popoverAlbumIndex: 0,
+  popoverAlbumLength: 0,
+  popoverAlbumIndex: 0
 }
 
 const mutations = {
@@ -20,18 +21,20 @@ const mutations = {
 
   setPopoverAlbum (state, album) {
     state.popoverAlbum = album;
+    state.popoverAlbumLength = album.length - 1;
   },
 
   setPopoverAlbumIndex (state, index) {
     state.popoverAlbumIndex = index;
+    console.log('new index', index);
   },
 
   incrementPopoverImage (state) {
     let index = state.popoverAlbumIndex;
-    index++
-    console.log('Setting popover index:', index)
 
-    if (index > state.popoverAlbum.length - 1) {
+    if (index < state.popoverAlbumLength) {
+      index++;
+    } else {
       index = 0;
     }
 
@@ -40,11 +43,11 @@ const mutations = {
 
   decrementPopoverImage (state) {
     let index = state.popoverAlbumIndex;
-    index--
-    console.log('Setting popover index:', index)
 
-    if (index < 0) {
-      index = state.popoverAlbum.length - 1;
+    if (index > 0) {
+      index--;
+    } else {
+      index = state.popoverAlbumLength;
     }
 
     state.popoverAlbumIndex = index;
@@ -55,8 +58,8 @@ const mutations = {
 const actions = {
   showPopover: ({ commit }) => commit('showPopover'),
   hidePopover: ({ commit }) => commit('hidePopover'),
-  setPopoverAlbum: ({ commit }, payload) => commit('setPopoverAlbum', payload),
-  setPopoverAlbumIndex: ({ commit }, payload) => commit('setPopoverAlbumIndex', payload),
+  setPopoverAlbum: ({ commit }, images) => commit('setPopoverAlbum', images),
+  setPopoverAlbumIndex: ({ commit }, index) => commit('setPopoverAlbumIndex', index),
   incrementPopoverImage: ({ commit }) => commit('incrementPopoverImage'),
   decrementPopoverImage: ({ commit }) => commit('decrementPopoverImage'),
 
