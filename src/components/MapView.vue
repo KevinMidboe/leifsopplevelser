@@ -29,7 +29,7 @@ export default {
       mapboxData: undefined,
       options: undefined,
 
-      accessToken: "pk.eyJ1Ijoia2V2aW5taWRib2UiLCJhIjoiY2pydWhlamQyMHJ2NTRhdGN1em5ndXVyMyJ9.Ejdo_3iuuGOD662Bh6es4w"
+      accessToken: undefined
     }
   },
   async created() {
